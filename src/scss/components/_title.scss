@@ -1,0 +1,15 @@
+.title {
+  font-weight: 400;
+  //line-height: 78.75px;
+  color: var(--light-color);
+  margin: 0;
+  &_fz72 {
+    font-size: 72px;
+  }
+  &_fz24 {
+    font-size: 24px;
+  }
+  &_fz14 {
+    font-size: 14px;
+  }
+}
