@@ -4,8 +4,10 @@
 @import "settings";
 
 // подключения компонентов страницы
+@import "./components/btn";
+@import "./components/title";
+
 @import "./components/header";
 @import "./components/goods";
 
-@import "./components/btn";
-@import "./components/title";
+
