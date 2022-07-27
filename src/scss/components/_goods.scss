@@ -23,6 +23,7 @@
       font-size: 18px;
       font-weight: 400;
       color: var(--border-color);
+      outline: none;
     }
     &_filter {
       margin-right: 13px;
@@ -83,7 +84,7 @@
         color: var(--dark-color);
         font-weight: 700;
         line-height: 28px;
-        margin-top: 33px;
+        margin-top: 13px;
       }
       &_status {
         position: relative;
@@ -126,6 +127,7 @@
       display: flex;
       font-size: 14px;
       line-height: 16px;
+      border-radius: 0 0 10px 10px;
       color: var(--stock-text-color);
       &_filledlike {
         width: 20px;
@@ -133,20 +135,19 @@
       }
       &_reviews {
         display: flex;
+        flex-direction: column;
         margin-left: 11px;
         width: 100%;
         &__percent {
-          margin-right: 5px;
-          font-weight: 700;
-        }
-        &__avarage {
-          display: block;
-          margin-bottom: 6px;
+          span {
+            font-weight: 700;
+            margin-right: 5px;
+          }
         }
       }
       &_order {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         flex-direction: column;
         &__quantity {
