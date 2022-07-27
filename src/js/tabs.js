@@ -20,7 +20,7 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
         <img class="goods-items-top_img" loading="lazy" src="./img/${imgUrl}" alt="">
         <h2 class="goods-items-top_title title title_fz24">${name}</h2>
         <span class="goods-items-top_status title_fz14">
-          <img class="goods-items-top_status__img" loading="lazy" src="img/svg/check.svg" alt="">
+          <img class="goods-items-top_status__img" loading="lazy" alt="">
           <span class="goods-items-top_status__quantity">${inStock}</span>left in stock
         </span>
         <span class="goods-items-top_price title_fz14">Price:
@@ -59,11 +59,17 @@ export function likeSwitcher() {
 
 function checkInStock(item) {
   document.querySelectorAll('.goods-items-top_status__img').forEach(el => {
-    console.log(item);
-    if (item == 0) {
+    if(Object.values(item) === 0 ) {
       el.src = "img/svg/check_zero.svg";
-    } else {
+    }
+    else {
       el.src = "img/svg/check.svg";
     }
+
+    // if (item[index] === '0') {
+    //   el.src = "img/svg/check_zero.svg";
+    // } else {
+    //   el.src = "img/svg/check.svg";
+    // }
   });
 }

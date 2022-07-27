@@ -97,7 +97,7 @@
           content: '';
           width: 24px;
           height: 24px;
-          border: 1px solid var(--stock-status-color);
+          border: 2px solid var(--stock-status-color);
           border-radius: 50%;
         }
         &__img {
@@ -115,6 +115,9 @@
         margin-top: 4px;
         line-height: 16px;
         color: var(--border-color);
+        &__sum {
+          font-weight: 700;
+        }
       }
       &_btn {
         margin-top: 8px;
