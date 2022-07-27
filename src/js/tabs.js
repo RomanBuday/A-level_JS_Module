@@ -45,6 +45,8 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
 export function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
   const store = document.querySelector('.goods-store');
   store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
+
+  checkInStock(inStock);
 }
 
 export function likeSwitcher() {
@@ -52,5 +54,16 @@ export function likeSwitcher() {
     el.addEventListener('click', e => {
       el.src = "img/svg/like_filled_red.svg";
     });
+  });
+}
+
+function checkInStock(item) {
+  document.querySelectorAll('.goods-items-top_status__img').forEach(el => {
+    console.log(item);
+    if (item == 0) {
+      el.src = "img/svg/check_zero.svg";
+    } else {
+      el.src = "img/svg/check.svg";
+    }
   });
 }
