@@ -1,7 +1,4 @@
-const store = document.querySelector('.goods-store');
-const checkStock = document.querySelector('.goods-items-top_status__img');
-
-export function getTabs(url) {
+export function getTabs(url, fn) {
   let data = url;
   data.forEach((el, index) => {
     generateTabs(
@@ -12,15 +9,7 @@ export function getTabs(url) {
       data[index].orderInfo.reviews,
       data[index].orderInfo.orders);
   });
-}
-
-export function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
-  store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
-  checkInStock();
-}
-
-function checkInStock(inStock) {
-
+  fn();
 }
 
 export function createTab(imgUrl, name, inStock, price, reviews, orders) {
@@ -51,4 +40,17 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
         </span>
       </div>
     </div>`;
+}
+
+export function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
+  const store = document.querySelector('.goods-store');
+  store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
+}
+
+export function likeSwitcher() {
+  document.querySelectorAll('.goods-items-top_like').forEach(el => {
+    el.addEventListener('click', e => {
+      el.src = "img/svg/like_filled_red.svg";
+    });
+  });
 }
