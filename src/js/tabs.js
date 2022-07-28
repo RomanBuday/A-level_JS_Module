@@ -29,7 +29,6 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
         </div>
         <button class="btn top-item_btn">Add to cart</button>
       </div>
-
       <div class="bottom-item">
         <img class="bottom-item_filledlike" loading="lazy" src="img/svg/like_filled_red.svg" alt="icon like filled">
         <div class="bottom-item_reviews">
@@ -56,6 +55,28 @@ export function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
 //   });
 // }
 
+export function toFavorite() {
+  document.querySelectorAll('.top-item_like').forEach(el => {
+    el.addEventListener('click', e => {
+      el.classList.toggle("active");
+      if(el.classList !== "active") {
+        el.src = "img/svg/like_filled.svg";
+      } else {
+        el.src = "img/svg/like_empty.svg";
+      }
+    });
+  });
+}
+
+
+// export function likeSwitcher() {
+//   let like = "img/svg/like_filled.svg";
+//   let dislike = "img/svg/like_empty.svg";
+
+//   let imgElement = document.querySelectorAll('.top-item_like');
+
+//   imgElement.src = (imgElement.src === like)? dislike : like;
+// }
 
 function inStockSwitcher(inStock) {
   if(inStock > 0) {
