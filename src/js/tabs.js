@@ -20,7 +20,7 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
         <img class="goods-items-top_img" loading="lazy" src="./img/${imgUrl}" alt="">
         <h2 class="goods-items-top_title title title_fz24">${name}</h2>
         <span class="goods-items-top_status title_fz14">
-          <img class="goods-items-top_status__img" loading="lazy" alt="">
+          <img class="goods-items-top_status__img" src=${inStockSwitcher()} loading="lazy" alt="">
           <span class="goods-items-top_status__quantity">${inStock}</span>left in stock
         </span>
         <span class="goods-items-top_price title_fz14">Price:
@@ -45,31 +45,45 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
 export function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
   const store = document.querySelector('.goods-store');
   store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
-
-  checkInStock(inStock);
+  console.log(inStock);
+  console.log(typeof inStock);
+  // console.log(inStock);
+  // checkInStock(inStock);
 }
 
 export function likeSwitcher() {
   document.querySelectorAll('.goods-items-top_like').forEach(el => {
     el.addEventListener('click', e => {
-      el.src = "img/svg/like_filled_red.svg";
+      el.src = "img/svg/like_filled.svg";
     });
   });
 }
 
-function checkInStock(item) {
-  document.querySelectorAll('.goods-items-top_status__img').forEach(el => {
-    if(Object.values(item) === 0 ) {
-      el.src = "img/svg/check_zero.svg";
-    }
-    else {
-      el.src = "img/svg/check.svg";
-    }
+function inStockSwitcher(inStock) {
+  console.log(inStock);
+  console.log(typeof inStock);
+  if(inStock > 0) {
+    return "img/svg/check.svg";
+  } else {
+    return "img/svg/check_zero.svg";
+  }
+}
+
+// function checkInStock(item) {
+//   document.querySelectorAll('.goods-items-top_status__img').forEach(el => {
+//     //console.log(item.typeof);
+//     if(item.length > 0 ) {
+//       console.log(item);
+//       el.src = "img/svg/check_zero.svg";
+//     }
+//     else {
+//       el.src = "img/svg/check.svg";
+//     }
 
     // if (item[index] === '0') {
     //   el.src = "img/svg/check_zero.svg";
     // } else {
     //   el.src = "img/svg/check.svg";
     // }
-  });
-}
+//   });
+// }
