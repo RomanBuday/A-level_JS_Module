@@ -14,30 +14,31 @@ export function getTabs(url, fn) {
 
 export function createTab(imgUrl, name, inStock, price, reviews, orders) {
   return `
-    <div class="goods-items">
-      <div class="goods-items-top">
-        <img class="goods-items-top_like" loading="lazy" src="img/svg/like_empty.svg" alt="">
-        <img class="goods-items-top_img" loading="lazy" src="./img/${imgUrl}" alt="">
-        <h2 class="goods-items-top_title title title_fz24">${name}</h2>
-        <span class="goods-items-top_status title_fz14">
-          <img class="goods-items-top_status__img" src=${inStockSwitcher()} loading="lazy" alt="">
-          <span class="goods-items-top_status__quantity">${inStock}</span>left in stock
-        </span>
-        <span class="goods-items-top_price title_fz14">Price:
-          <span class="goods-items-top_price__sum">${price} $</span>
-        </span>
-        <button class="btn goods-items-top_btn">Add to cart</button>
+    <div class="goods-item">
+      <div class="top-item">
+        <img class="top-item_like" loading="lazy" src="img/svg/like_empty.svg" alt="like icon">
+        <img class="top-item_img" loading="lazy" src="./img/${imgUrl}" alt="item image">
+        <h2 class="top-item_title title title_fz24">${name}</h2>
+        <div class="top-item_status">
+          <img class="status-img" src=${inStockSwitcher(inStock)} loading="lazy" alt="in stock icon">
+          <span class="status-quantity">${inStock}</span>left in stock
+        </div>
+        <div class="top-item_price">
+          <span class ="price-text">Price:</span>
+          <span class="price-sum">${price} $</span>
+        </div>
+        <button class="btn top-item_btn">Add to cart</button>
       </div>
 
-      <div class="goods-items-bottom">
-        <img class="goods-items-bottom_filledlike" loading="lazy" src="img/svg/like_filled_red.svg" alt="">
-        <div class="goods-items-bottom_reviews title_fz14">
-          <span class="goods-items-bottom_reviews__percent"><span>${reviews}%</span>Positive reviews</span>
-          <span class="goods-items-bottom_reviews__above">Above avarage</span>
+      <div class="bottom-item">
+        <img class="bottom-item_filledlike" loading="lazy" src="img/svg/like_filled_red.svg" alt="icon like filled">
+        <div class="bottom-item_reviews">
+          <span class="reviews-percent"><span>${reviews}%</span>Positive reviews</span>
+          <span class="reviews-above">Above avarage</span>
         </div>
-        <span class="goods-items-bottom_order title_fz14">
-          <span class="goods-items-bottom_order__quantity">${orders}</span>orders
-        </span>
+        <div class="bottom-item_order">
+          <span class="order-quantity">${orders}</span>orders
+        </div>
       </div>
     </div>`;
 }
@@ -45,45 +46,21 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
 export function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
   const store = document.querySelector('.goods-store');
   store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
-  console.log(inStock);
-  console.log(typeof inStock);
-  // console.log(inStock);
-  // checkInStock(inStock);
 }
 
-export function likeSwitcher() {
-  document.querySelectorAll('.goods-items-top_like').forEach(el => {
-    el.addEventListener('click', e => {
-      el.src = "img/svg/like_filled.svg";
-    });
-  });
-}
+// export function likeSwitcher() {
+//   document.querySelectorAll('.top-item_like').forEach(el => {
+//     el.addEventListener('click', e => {
+//       el.src = "img/svg/like_filled.svg";
+//     });
+//   });
+// }
+
 
 function inStockSwitcher(inStock) {
-  console.log(inStock);
-  console.log(typeof inStock);
   if(inStock > 0) {
     return "img/svg/check.svg";
   } else {
     return "img/svg/check_zero.svg";
   }
 }
-
-// function checkInStock(item) {
-//   document.querySelectorAll('.goods-items-top_status__img').forEach(el => {
-//     //console.log(item.typeof);
-//     if(item.length > 0 ) {
-//       console.log(item);
-//       el.src = "img/svg/check_zero.svg";
-//     }
-//     else {
-//       el.src = "img/svg/check.svg";
-//     }
-
-    // if (item[index] === '0') {
-    //   el.src = "img/svg/check_zero.svg";
-    // } else {
-    //   el.src = "img/svg/check.svg";
-    // }
-//   });
-// }

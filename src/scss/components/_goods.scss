@@ -54,109 +54,133 @@
     justify-content: space-between;
     margin-top: 34px;
   }
-  &-items {
+  &-item {
     border: 1px solid var(--container-border-color);
     border-radius: 10px;
     width: 30%;
     box-shadow: 4px 4px 15px 3px rgba(0,0,0,0.25);
     margin-bottom: 50px;
-    &-top {
-      padding: 10px;
+  }
+}
+
+.top {
+  &-item {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &_like {
+      align-self: flex-end;
+      width: 24px;
+      height: 24px;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+    }
+    &_img {
+      position: relative;
+      bottom: 20px;
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+    }
+    &_title {
+      color: var(--dark-color);
+      font-weight: 700;
+      line-height: 28px;
+      margin-top: 13px;
+    }
+    &_status {
+      font-size: 14px;
+      position: relative;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      &_like {
-        align-self: flex-end;
+      margin-top: 3px;
+      line-height: 16px;
+      color: var(--border-color);
+      &::before {
+        content: '';
         width: 24px;
         height: 24px;
-        position: relative;
-        z-index: 1;
-        cursor: pointer;
-      }
-      &_img {
-        position: relative;
-        bottom: 20px;
-        width: 200px;
-        height: 200px;
-        object-fit: contain;
-      }
-      &_title {
-        color: var(--dark-color);
-        font-weight: 700;
-        line-height: 28px;
-        margin-top: 13px;
-      }
-      &_status {
-        position: relative;
-        display: flex;
-        align-items: center;
-        margin-top: 3px;
-        line-height: 16px;
-        color: var(--border-color);
-        &::before {
-          content: '';
-          width: 24px;
-          height: 24px;
-          border: 2px solid var(--stock-status-color);
-          border-radius: 50%;
-        }
-        &__img {
-          position: absolute;
-          width: 24px;
-          height: 24px;
-        }
-        &__quantity {
-          font-weight: 600;
-          margin: 0 4px;
-        }
-      }
-      &_price {
-        // font-style: normal;
-        margin-top: 4px;
-        line-height: 16px;
-        color: var(--border-color);
-        &__sum {
-          font-weight: 700;
-        }
-      }
-      &_btn {
-        margin-top: 8px;
+        border: 2px solid var(--stock-status-color);
+        border-radius: 50%;
       }
     }
-    &-bottom {
-      padding: 19px 13px 29px 13px;
-      margin-top: 14px;
-      background-color: var(--items-bg);
-      display: flex;
+    &_price {
       font-size: 14px;
+      margin-top: 4px;
       line-height: 16px;
-      border-radius: 0 0 10px 10px;
-      color: var(--stock-text-color);
-      &_filledlike {
-        width: 20px;
-        height: 20px;
-      }
-      &_reviews {
-        display: flex;
-        flex-direction: column;
-        margin-left: 11px;
-        width: 100%;
-        &__percent {
-          span {
-            font-weight: 700;
-            margin-right: 5px;
-          }
-        }
-      }
-      &_order {
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        flex-direction: column;
-        &__quantity {
-          font-weight: 700;
-        }
-      }
+      color: var(--border-color);
     }
+    &_btn {
+      margin-top: 8px;
+    }
+  }
+}
+
+.status {
+  font-size: 14px;
+  &-img {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+  }
+  &-quantity {
+    font-weight: 600;
+    margin: 0 4px;
+  }
+}
+
+.price {
+  font-size: 14px;
+  &-sum {
+    font-weight: 700;
+  }
+}
+
+.bottom {
+  &-item {
+    padding: 19px 13px 29px 13px;
+    margin-top: 14px;
+    background-color: var(--items-bg);
+    display: flex;
+    font-size: 14px;
+    line-height: 16px;
+    border-radius: 0 0 10px 10px;
+    color: var(--stock-text-color);
+    &_filledlike {
+      width: 20px;
+      height: 20px;
+    }
+    &_reviews {
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      margin-left: 11px;
+      width: 100%;
+    }
+    &_order {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+
+.reviews {
+  font-size: 14px;
+  &-percent {
+    span {
+      font-weight: 700;
+      margin-right: 5px;
+    }
+  }
+}
+
+.order {
+  font-size: 14px;
+  &-quantity {
+    font-weight: 700;
   }
 }

@@ -1672,8 +1672,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createTab": () => (/* binding */ createTab),
 /* harmony export */   "generateTabs": () => (/* binding */ generateTabs),
-/* harmony export */   "getTabs": () => (/* binding */ getTabs),
-/* harmony export */   "likeSwitcher": () => (/* binding */ likeSwitcher)
+/* harmony export */   "getTabs": () => (/* binding */ getTabs)
 /* harmony export */ });
 function getTabs(url, fn) {
   let data = url;
@@ -1683,49 +1682,26 @@ function getTabs(url, fn) {
   fn();
 }
 function createTab(imgUrl, name, inStock, price, reviews, orders) {
-  return "\n    <div class=\"goods-items\">\n      <div class=\"goods-items-top\">\n        <img class=\"goods-items-top_like\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"\">\n        <img class=\"goods-items-top_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"\">\n        <h2 class=\"goods-items-top_title title title_fz24\">").concat(name, "</h2>\n        <span class=\"goods-items-top_status title_fz14\">\n          <img class=\"goods-items-top_status__img\" src=").concat(inStockSwitcher(), " loading=\"lazy\" alt=\"\">\n          <span class=\"goods-items-top_status__quantity\">").concat(inStock, "</span>left in stock\n        </span>\n        <span class=\"goods-items-top_price title_fz14\">Price:\n          <span class=\"goods-items-top_price__sum\">").concat(price, " $</span>\n        </span>\n        <button class=\"btn goods-items-top_btn\">Add to cart</button>\n      </div>\n\n      <div class=\"goods-items-bottom\">\n        <img class=\"goods-items-bottom_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"\">\n        <div class=\"goods-items-bottom_reviews title_fz14\">\n          <span class=\"goods-items-bottom_reviews__percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"goods-items-bottom_reviews__above\">Above avarage</span>\n        </div>\n        <span class=\"goods-items-bottom_order title_fz14\">\n          <span class=\"goods-items-bottom_order__quantity\">").concat(orders, "</span>orders\n        </span>\n      </div>\n    </div>");
+  return "\n    <div class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn\">Add to cart</button>\n      </div>\n\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
 }
 function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
   const store = document.querySelector('.goods-store');
   store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
-  console.log(inStock);
-  console.log(typeof inStock); // console.log(inStock);
-  // checkInStock(inStock);
-}
-function likeSwitcher() {
-  document.querySelectorAll('.goods-items-top_like').forEach(el => {
-    el.addEventListener('click', e => {
-      el.src = "img/svg/like_filled.svg";
-    });
-  });
-}
+} // export function likeSwitcher() {
+//   document.querySelectorAll('.top-item_like').forEach(el => {
+//     el.addEventListener('click', e => {
+//       el.src = "img/svg/like_filled.svg";
+//     });
+//   });
+// }
 
 function inStockSwitcher(inStock) {
-  console.log(inStock);
-  console.log(typeof inStock);
-
   if (inStock > 0) {
     return "img/svg/check.svg";
   } else {
     return "img/svg/check_zero.svg";
   }
-} // function checkInStock(item) {
-//   document.querySelectorAll('.goods-items-top_status__img').forEach(el => {
-//     //console.log(item.typeof);
-//     if(item.length > 0 ) {
-//       console.log(item);
-//       el.src = "img/svg/check_zero.svg";
-//     }
-//     else {
-//       el.src = "img/svg/check.svg";
-//     }
-// if (item[index] === '0') {
-//   el.src = "img/svg/check_zero.svg";
-// } else {
-//   el.src = "img/svg/check.svg";
-// }
-//   });
-// }
+}
 
 /***/ })
 
