@@ -9,14 +9,14 @@ export function getTabs(url, fn) {
       data[index].orderInfo.reviews,
       data[index].orderInfo.orders);
   });
-  fn();
+  // fn();
 }
 
 export function createTab(imgUrl, name, inStock, price, reviews, orders) {
   return `
     <div class="goods-item">
       <div class="top-item">
-        <img class="top-item_like" loading="lazy" src="img/svg/like_empty.svg" alt="like icon">
+        <img class="top-item_like double" loading="lazy" src="img/svg/like_empty.svg" alt="like icon">
         <img class="top-item_img" loading="lazy" src="./img/${imgUrl}" alt="item image">
         <h2 class="top-item_title title title_fz24">${name}</h2>
         <div class="top-item_status">
@@ -47,36 +47,21 @@ export function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
   store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
 }
 
-// export function likeSwitcher() {
-//   document.querySelectorAll('.top-item_like').forEach(el => {
-//     el.addEventListener('click', e => {
-//       el.src = "img/svg/like_filled.svg";
-//     });
-//   });
-// }
-
 export function toFavorite() {
   document.querySelectorAll('.top-item_like').forEach(el => {
     el.addEventListener('click', e => {
-      el.classList.toggle("active");
-      if(el.classList !== "active") {
+      if(el.classList.contains('double')){
         el.src = "img/svg/like_filled.svg";
-      } else {
+        el.classList.remove('double');
+      }
+      else {
         el.src = "img/svg/like_empty.svg";
+        el.classList.add('double');
       }
     });
   });
 }
 
-
-// export function likeSwitcher() {
-//   let like = "img/svg/like_filled.svg";
-//   let dislike = "img/svg/like_empty.svg";
-
-//   let imgElement = document.querySelectorAll('.top-item_like');
-
-//   imgElement.src = (imgElement.src === like)? dislike : like;
-// }
 
 function inStockSwitcher(inStock) {
   if(inStock > 0) {
