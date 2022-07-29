@@ -1708,7 +1708,11 @@ function inStockSwitcher(inStock) {
   } else {
     return "img/svg/check_zero.svg";
   }
-}
+} // document.addEventListener('click', e => {
+//   if(el.event.target.contains("double")) {
+//     toFavorite(event.target);
+//   }
+// }
 
 /***/ })
 
@@ -1782,6 +1786,23 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
   setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, 1000);
+  const accordionBtns = document.querySelectorAll(".filter-title");
+  accordionBtns.forEach(accordion => {
+    accordion.onclick = function () {
+      this.classList.toggle("is-open");
+      let content = this.nextElementSibling;
+      console.log(content);
+
+      if (content.style.maxHeight) {
+        //this is if the accordion is open
+        content.style.maxHeight = null;
+      } else {
+        //if the accordion is currently closed
+        content.style.maxHeight = content.scrollHeight + "px";
+        console.log(content.style.maxHeight);
+      }
+    };
+  });
 });
 })();
 
