@@ -7,6 +7,7 @@
   }
   &-filter {
     // width: 326px;
+    display: none;
     border: 1px solid var(--container-border-color);
     border-radius: 5px;
     margin-right: 40px;
@@ -74,7 +75,6 @@
     margin-bottom: 50px;
   }
 }
-
 .top {
   &-item {
     padding: 10px;
@@ -244,77 +244,79 @@
   }
 }
 
-.price {
+.content-price {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 0 24px 25px 40px;
-  &-form {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-    &_input {
-      margin-left: 20px;
-      width: 190px;
-      font-size: 18px;
-      color: var(--dark-color);
-      padding: 8px 0;
-      text-align: center;
-      border: 1px solid #E2E2E2;
-      border-radius: 5px;
-    }
+}
+
+.price-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  &_label {
+    display: contents;
+  }
+  &_input {
+    margin-left: 20px;
+    width: 190px;
+    font-size: 18px;
+    color: var(--dark-color);
+    padding: 8px 0;
+    text-align: center;
+    border: 1px solid #E2E2E2;
+    border-radius: 5px;
   }
 }
 
-.color {
+.content-color{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding: 23px 10px 28px 30px;
   padding-left: 30px;
-  &-form {
-    width: 50%;
-    margin-top: 10px;
-    &_checkbox {
-      background-color: var(--dark-color);
-      &::placeholder {
-        background-color: var(--dark-color);
-      }
-    }
-  }
 }
 
-.memory {
+.color-inner {
+  width: 50%;
+  margin-top: 10px;
+}
+
+.content-memory {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding: 23px 10px 28px 30px;
   padding-left: 30px;
-  &-form {
-    width: 50%;
-    margin-top: 10px;
-  }
 }
 
-.os {
+.memory-inner {
+  width: 50%;
+  margin-top: 10px;
+}
+
+.content-os {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   padding: 23px 10px 28px 30px;
   padding-left: 30px;
-  &-form {
-    margin-top: 10px;
-  }
 }
 
-.display {
+.os-inner {
+  margin-top: 10px;
+}
+
+.content-display {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   padding: 23px 10px 28px 30px;
   padding-left: 30px;
-  &-form {
+}
+
+.display-inner {
     margin-top: 10px;
-  }
 }

@@ -2,6 +2,57 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/filter.js":
+/*!**************************!*\
+  !*** ./src/js/filter.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "accordionFilter": () => (/* binding */ accordionFilter),
+/* harmony export */   "showFilter": () => (/* binding */ showFilter)
+/* harmony export */ });
+function accordionFilter() {
+  const accordionBtns = document.querySelectorAll(".filter-title");
+  accordionBtns.forEach(accordion => {
+    accordion.onclick = function () {
+      this.classList.toggle("is-open");
+      let content = this.nextElementSibling;
+
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    };
+  });
+}
+function showFilter() {
+  const filterBtn = document.querySelector(".goods-search_filter");
+  const filterAside = document.querySelector(".goods-filter");
+  const showItems = document.querySelectorAll(".goods-item");
+  filterBtn.addEventListener('click', e => {
+    if (filterBtn.classList.contains("filter-hide")) {
+      filterBtn.classList.remove("filter-hide");
+      filterAside.style.display = "block";
+
+      for (let i = 0, length = showItems.length; i < length; i++) {
+        showItems[i].style.width = "48%";
+      }
+    } else {
+      filterBtn.classList.add("filter-hide");
+      filterAside.style.display = "none";
+
+      for (let i = 0, length = showItems.length; i < length; i++) {
+        showItems[i].style.width = "30%";
+      }
+    }
+  });
+}
+
+/***/ }),
+
 /***/ "./src/js/items.js":
 /*!*************************!*\
   !*** ./src/js/items.js ***!
@@ -1708,11 +1759,7 @@ function inStockSwitcher(inStock) {
   } else {
     return "img/svg/check_zero.svg";
   }
-} // document.addEventListener('click', e => {
-//   if(el.event.target.contains("double")) {
-//     toFavorite(event.target);
-//   }
-// }
+}
 
 /***/ })
 
@@ -1781,28 +1828,15 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _items_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./items.js */ "./src/js/items.js");
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabs.js */ "./src/js/tabs.js");
+/* harmony import */ var _filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filter.js */ "./src/js/filter.js");
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, 1000);
-  const accordionBtns = document.querySelectorAll(".filter-title");
-  accordionBtns.forEach(accordion => {
-    accordion.onclick = function () {
-      this.classList.toggle("is-open");
-      let content = this.nextElementSibling;
-      console.log(content);
-
-      if (content.style.maxHeight) {
-        //this is if the accordion is open
-        content.style.maxHeight = null;
-      } else {
-        //if the accordion is currently closed
-        content.style.maxHeight = content.scrollHeight + "px";
-        console.log(content.style.maxHeight);
-      }
-    };
-  });
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, 1000);
+  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
+  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
 });
 })();
 

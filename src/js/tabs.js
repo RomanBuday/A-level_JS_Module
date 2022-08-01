@@ -70,10 +70,3 @@ function inStockSwitcher(inStock) {
     return "img/svg/check_zero.svg";
   }
 }
-
-
-// document.addEventListener('click', e => {
-//   if(el.event.target.contains("double")) {
-//     toFavorite(event.target);
-//   }
-// }
