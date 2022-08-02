@@ -35,14 +35,16 @@ function showFilter() {
   filterBtn.addEventListener('click', e => {
     if (filterBtn.classList.contains("filter-hide")) {
       filterBtn.classList.remove("filter-hide");
-      filterAside.style.display = "block";
+      filterAside.classList.remove("hide");
+      filterAside.classList.add("show");
 
       for (let i = 0, length = showItems.length; i < length; i++) {
         showItems[i].style.width = "48%";
       }
     } else {
       filterBtn.classList.add("filter-hide");
-      filterAside.style.display = "none";
+      filterAside.classList.add("hide");
+      filterAside.classList.remove("show");
 
       for (let i = 0, length = showItems.length; i < length; i++) {
         showItems[i].style.width = "30%";
@@ -1713,6 +1715,63 @@ const items = [{
 
 /***/ }),
 
+/***/ "./src/js/modal.js":
+/*!*************************!*\
+  !*** ./src/js/modal.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "generateModal": () => (/* binding */ generateModal),
+/* harmony export */   "getDetails": () => (/* binding */ getDetails),
+/* harmony export */   "modalSwitcher": () => (/* binding */ modalSwitcher),
+/* harmony export */   "showDetails": () => (/* binding */ showDetails)
+/* harmony export */ });
+function modalSwitcher() {
+  const modalTrigger = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal');
+  modalTrigger.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.add('show');
+      modal.classList.remove('hide');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeModal() {
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.code === "Escape") {
+      closeModal();
+    }
+  });
+  modal.addEventListener('click', e => {
+    if (e.target === modal && modal.classList.contains('show')) {
+      closeModal();
+    }
+  });
+}
+function showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock) {
+  return "\n    <div class=\"modal-content fade\">\n      <div class=\"modal-content_left\">\n        <div class=\"modal-content_img\">\n          <img src=\"./img/".concat(imgUrl, "\" alt=\"item img\">\n        </div>\n      </div>\n\n      <div class=\"modal-content_center\">\n        <div class=\"modal-content_descr\">\n          <h2 class=\"descr-title title_fz24\">").concat(name, "</h2>\n          <div class=\"descr-item bottom-item\">\n            <img class=\"descr-item_filledlike bottom-item_filledlike\" loading=\"lazy\"\n              src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n            <div class=\"descr-item_reviews bottom-item_reviews\">\n              <span class=\"descr-item_percent reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n              <span class=\"descr-item_above reviews-above\">Above avarage</span>\n            </div>\n            <div class=\"descr-item_order bottom-item_order\">\n              <span class=\"descr-item_quantity order-quantity\">").concat(orders, "</span>orders\n            </div>\n          </div>\n\n          <ul class=\"descr-list\">\n            <li class=\"descr-list_item\">Color: <span>").concat(color.join(', '), "</span></li>\n            <li class=\"descr-list_item\">Operating System: <span>").concat(os, "</span></li>\n            <li class=\"descr-list_item\">Chip: <span>").concat(chip, "</span></li>\n            <li class=\"descr-list_item\">Height: <span>").concat(height, "</span> cm</li>\n            <li class=\"descr-list_item\">Width: <span>").concat(width, "</span> cm</li>\n            <li class=\"descr-list_item\">Depth: <span>").concat(depth, "</span> cm</li>\n            <li class=\"descr-list_item\">Weight: <span>").concat(weight * 1000, "</span> g</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class=\"modal-content_right\">\n        <span class=\"modal-content_price price-sum\">$ ").concat(price, "</span>\n        <span class=\"modal-content_quantity status-quantity\">Stock: <span>").concat(inStock, "</span> pcs.</span>\n        <button class=\"modal-content_btn btn\">Add to cart</button>\n      </div>\n    </div>");
+}
+function generateModal(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock) {
+  const modal = document.querySelector('.modal-container');
+  modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock));
+}
+function getDetails(url, fn) {
+  let data = url;
+  data.forEach((el, index) => {
+    generateModal(data[index].imgUrl, data[index].name, data[index].orderInfo.reviews, data[index].orderInfo.orders, data[index].color, data[index].os, data[index].chip.name, data[index].size.height, data[index].size.width, data[index].size.depth, data[index].size.weight, data[index].price, data[index].orderInfo.inStock);
+  }); // fn();
+}
+
+/***/ }),
+
 /***/ "./src/js/tabs.js":
 /*!************************!*\
   !*** ./src/js/tabs.js ***!
@@ -1733,7 +1792,7 @@ function getTabs(url, fn) {
   }); // fn();
 }
 function createTab(imgUrl, name, inStock, price, reviews, orders) {
-  return "\n    <div class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
+  return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
 }
 function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
   const store = document.querySelector('.goods-store');
@@ -1829,14 +1888,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _items_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./items.js */ "./src/js/items.js");
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabs.js */ "./src/js/tabs.js");
 /* harmony import */ var _filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filter.js */ "./src/js/filter.js");
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal.js */ "./src/js/modal.js");
+
 
 
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
+  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
+  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
 });
 })();
 

@@ -23,13 +23,15 @@ export function showFilter() {
   filterBtn.addEventListener('click', e => {
     if (filterBtn.classList.contains("filter-hide")) {
       filterBtn.classList.remove("filter-hide");
-      filterAside.style.display = "block";
+      filterAside.classList.remove("hide");
+      filterAside.classList.add("show");
       for(let i = 0, length = showItems.length; i < length; i ++) {
         showItems[i].style.width =  "48%";
       }
     } else {
       filterBtn.classList.add("filter-hide");
-      filterAside.style.display = "none";
+      filterAside.classList.add("hide");
+      filterAside.classList.remove("show");
       for(let i = 0, length = showItems.length; i < length; i ++) {
         showItems[i].style.width =  "30%";
       }
