@@ -1774,6 +1774,87 @@ function getDetails(items) {
 
 /***/ }),
 
+/***/ "./src/js/search.js":
+/*!**************************!*\
+  !*** ./src/js/search.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "startSearch": () => (/* binding */ startSearch)
+/* harmony export */ });
+let input = document.querySelector('.goods-search_input').value,
+    searchBtn = document.querySelector('.goods-search_icon'),
+    searchItem = document.querySelectorAll('goods-item');
+console.log(input);
+
+function saveBody() {
+  const localeHtml = document.body.innerHTML;
+}
+
+function searchItems(name, status) {
+  if (input.length < 3 && status == true) {
+    alert('Для поиска вы должны ввести три или более символов');
+
+    function FindOnPageBack() {
+      document.body.innerHTML = localeHTML;
+    }
+  }
+
+  if (input.lenght >= 3) {
+    function findOnPageGo() {
+      let search = '/' + input + '/g';
+      let pr = document.body.innerHTML;
+      let result = pr.match(/>(.*?)</g);
+      let resultArr = [];
+      let warning = true;
+
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].match(eval(search)) != null) {
+          warning = false;
+        }
+      }
+
+      if (warning == true) {
+        alert('Не найдено ни одного совпадения');
+      }
+
+      for (let i = 0; i < result.length; i++) {
+        resultArr[i] = result[i].replace(eval(search), console.log(input));
+      }
+
+      for (let i = 0; i < result.length; i++) {
+        pr = pr.replace(result[i], resultArr[i]);
+      }
+
+      document.body.innerHTML = pr;
+    }
+  }
+
+  function FindOnPageBack() {
+    document.body.innerHTML = localeHTML;
+  }
+
+  if (status) {
+    FindOnPageBack();
+    FindOnPageGo();
+  }
+
+  if (!status) {
+    FindOnPageBack();
+  }
+}
+
+function startSearch() {
+  searchBtn.addEventListener('click', e => {
+    e.preventDefault();
+    searchItems(input);
+  });
+}
+
+/***/ }),
+
 /***/ "./src/js/slider.js":
 /*!**************************!*\
   !*** ./src/js/slider.js ***!
@@ -1802,6 +1883,7 @@ function showSlides(n) {
 
   slides.forEach(item => item.style.display = 'none');
   slides[slideIndex - 1].style.display = 'block';
+  slides[slideIndex - 1].classList.add('fade');
 
   if (slideIndex == 2 || slideIndex == 3 || slideIndex == 5) {
     sliderTitle[slideIndex - 1].classList.add('title-modify');
@@ -1956,6 +2038,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filter.js */ "./src/js/filter.js");
 /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal.js */ "./src/js/modal.js");
 /* harmony import */ var _slider_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./slider.js */ "./src/js/slider.js");
+/* harmony import */ var _search_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./search.js */ "./src/js/search.js");
+
 
 
 
@@ -1963,11 +2047,13 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.startSearch, 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
   (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex); //getDetails();
+
+  (0,_search_js__WEBPACK_IMPORTED_MODULE_5__.startSearch)();
 });
 })();
 
