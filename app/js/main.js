@@ -1763,11 +1763,44 @@ function generateModal(imgUrl, name, reviews, orders, color, os, chip, height, w
   const modal = document.querySelector('.modal-container');
   modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock));
 }
-function getDetails(url, fn) {
-  let data = url;
+function getDetails(items) {
+  let data = items;
   data.forEach((el, index) => {
-    generateModal(data[index].imgUrl, data[index].name, data[index].orderInfo.reviews, data[index].orderInfo.orders, data[index].color, data[index].os, data[index].chip.name, data[index].size.height, data[index].size.width, data[index].size.depth, data[index].size.weight, data[index].price, data[index].orderInfo.inStock);
-  }); // fn();
+    if (data[index].id == data.id) {
+      generateModal(data[index].imgUrl, data[index].name, data[index].orderInfo.reviews, data[index].orderInfo.orders, data[index].color, data[index].os, data[index].chip.name, data[index].size.height, data[index].size.width, data[index].size.depth, data[index].size.weight, data[index].price, data[index].orderInfo.inStock);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/slider.js":
+/*!**************************!*\
+  !*** ./src/js/slider.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "showSlides": () => (/* binding */ showSlides)
+/* harmony export */ });
+const slides = document.querySelectorAll(".offer-slide");
+let slideIndex = 1;
+function showSlides(n) {
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+
+  slides.forEach(item => item.style.display = 'none');
+  slides[slideIndex - 1].style.display = 'block';
+}
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
 }
 
 /***/ }),
@@ -1889,17 +1922,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabs.js */ "./src/js/tabs.js");
 /* harmony import */ var _filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filter.js */ "./src/js/filter.js");
 /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal.js */ "./src/js/modal.js");
+/* harmony import */ var _slider_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./slider.js */ "./src/js/slider.js");
+
 
 
 
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex), 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
-  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
+  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)();
 });
 })();
 

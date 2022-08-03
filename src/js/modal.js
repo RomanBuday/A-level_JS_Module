@@ -77,29 +77,32 @@ width, depth, weight, price, inStock) {
 export function generateModal(imgUrl, name, reviews, orders, color, os, chip, height,
   width, depth, weight, price, inStock) {
   const modal = document.querySelector('.modal-container');
+
   modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height,
     width, depth, weight, price, inStock));
+
+
 }
 
-export function getDetails(url, fn) {
-
-  let data = url;
+export function getDetails(items) {
+  let data = items;
 
   data.forEach((el, index) => {
-    generateModal(
-      data[index].imgUrl,
-      data[index].name,
-      data[index].orderInfo.reviews,
-      data[index].orderInfo.orders,
-      data[index].color,
-      data[index].os,
-      data[index].chip.name,
-      data[index].size.height,
-      data[index].size.width,
-      data[index].size.depth,
-      data[index].size.weight,
-      data[index].price,
-      data[index].orderInfo.inStock);
+    if(data[index].id == data.id) {
+      generateModal(
+        data[index].imgUrl,
+        data[index].name,
+        data[index].orderInfo.reviews,
+        data[index].orderInfo.orders,
+        data[index].color,
+        data[index].os,
+        data[index].chip.name,
+        data[index].size.height,
+        data[index].size.width,
+        data[index].size.depth,
+        data[index].size.weight,
+        data[index].price,
+        data[index].orderInfo.inStock);
+    }
   });
-  // fn();
 }
