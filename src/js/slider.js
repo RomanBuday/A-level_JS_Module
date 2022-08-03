@@ -1,4 +1,4 @@
-const slides = document.querySelectorAll(".offer-slide");
+const slides = document.querySelectorAll(".offer_slide");
 let slideIndex = 1;
 
 export function showSlides(n) {
