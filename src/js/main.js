@@ -2,7 +2,7 @@ import {items} from "./items.js";
 import {getTabs, toFavorite} from "./tabs.js";
 import {accordionFilter, showFilter} from "./filter.js";
 import {modalSwitcher, getDetails} from "./modal.js";
-import {showSlides, slideIndex, plusSlides} from "./slider.js";
+import {showSlides, slideIndex} from "./slider.js";
 
 document.addEventListener('DOMContentLoaded', function () {
   getTabs(items, toFavorite);
@@ -13,7 +13,5 @@ document.addEventListener('DOMContentLoaded', function () {
   modalSwitcher();
 
   showSlides(slideIndex);
-  plusSlides();
-
-  getDetails();
+  //getDetails();
 });

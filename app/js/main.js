@@ -1782,9 +1782,14 @@ function getDetails(items) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "plusSlides": () => (/* binding */ plusSlides),
 /* harmony export */   "showSlides": () => (/* binding */ showSlides)
 /* harmony export */ });
-const slides = document.querySelectorAll(".offer_slide");
+const slides = document.querySelectorAll(".offer_slide"),
+      sliderTitle = document.querySelectorAll(".header-bottom_title"),
+      sliderBtn = document.querySelectorAll(".header-bottom_btn"),
+      prev = document.querySelector(".offer-slider_prev"),
+      next = document.querySelector(".offer-slider_next");
 let slideIndex = 1;
 function showSlides(n) {
   if (n > slides.length) {
@@ -1797,11 +1802,39 @@ function showSlides(n) {
 
   slides.forEach(item => item.style.display = 'none');
   slides[slideIndex - 1].style.display = 'block';
-}
 
+  if (slideIndex == 2 || slideIndex == 3 || slideIndex == 5) {
+    sliderTitle[slideIndex - 1].classList.add('title-modify');
+  }
+
+  if (slideIndex == 3) {
+    sliderTitle[slideIndex - 1].style.top = "25%";
+    sliderTitle[slideIndex - 1].style.left = "18%";
+    sliderBtn[slideIndex - 1].style.top = "40%";
+    sliderBtn[slideIndex - 1].style.left = "18%";
+  }
+
+  if (slideIndex == 5) {
+    sliderTitle[slideIndex - 1].style.top = "17%";
+    sliderBtn[slideIndex - 1].style.top = "45%";
+  }
+
+  if (slideIndex == 7) {
+    sliderTitle[slideIndex - 1].style.top = "40%";
+    sliderTitle[slideIndex - 1].style.left = "30%";
+    sliderBtn[slideIndex - 1].style.top = "50%";
+    sliderBtn[slideIndex - 1].style.left = "30%";
+  }
+}
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
+prev.addEventListener('click', () => {
+  plusSlides(-1);
+});
+next.addEventListener('click', () => {
+  plusSlides(+1);
+});
 
 /***/ }),
 
@@ -1934,9 +1967,7 @@ document.addEventListener('DOMContentLoaded', function () {
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
-  (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
-  (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.plusSlides)();
-  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)();
+  (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex); //getDetails();
 });
 })();
 
