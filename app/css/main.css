@@ -382,7 +382,6 @@ a {
   justify-content: space-between;
 }
 .goods-item {
-  cursor: pointer;
   border: 1px solid var(--container-border-color);
   border-radius: 10px;
   width: 30%;
@@ -414,6 +413,7 @@ a {
   cursor: pointer;
 }
 .top-item_img {
+  cursor: pointer;
   position: relative;
   bottom: 20px;
   width: 200px;

@@ -1,5 +1,6 @@
 export function modalSwitcher() {
-  const modalTrigger = document.querySelectorAll('[data-modal]'),
+  // const modalTrigger = document.querySelectorAll('[data-modal]'),
+  const modalTrigger = document.querySelectorAll('.top-item_img'),
         modal = document.querySelector('.modal');
 
   modalTrigger.forEach(btn => {

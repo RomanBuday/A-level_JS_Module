@@ -68,7 +68,7 @@
     //margin-top: 34px;
   }
   &-item {
-    cursor: pointer;
+    //cursor: pointer;
     border: 1px solid var(--container-border-color);
     border-radius: 10px;
     width: 30%;
@@ -91,6 +91,7 @@
       cursor: pointer;
     }
     &_img {
+      cursor: pointer;
       position: relative;
       bottom: 20px;
       width: 200px;
