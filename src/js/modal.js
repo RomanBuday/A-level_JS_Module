@@ -30,7 +30,7 @@ export function modalSwitcher() {
   });
 }
 
-export function showDetails(imgUrl, name, reviews, orders, color, os, chip, height,
+function showDetails(imgUrl, name, reviews, orders, color, os, chip, height,
 width, depth, weight, price, inStock) {
   return `
     <div class="modal-content fade">
@@ -75,21 +75,18 @@ width, depth, weight, price, inStock) {
     </div>`;
 }
 
-export function generateModal(imgUrl, name, reviews, orders, color, os, chip, height,
+function generateModal(imgUrl, name, reviews, orders, color, os, chip, height,
   width, depth, weight, price, inStock) {
   const modal = document.querySelector('.modal-container');
 
   modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height,
     width, depth, weight, price, inStock));
-
-
 }
 
 export function getDetails(items) {
   let data = items;
 
   data.forEach((el, index) => {
-    if(data[index].id == data.id) {
       generateModal(
         data[index].imgUrl,
         data[index].name,
@@ -104,6 +101,5 @@ export function getDetails(items) {
         data[index].size.weight,
         data[index].price,
         data[index].orderInfo.inStock);
-    }
   });
 }

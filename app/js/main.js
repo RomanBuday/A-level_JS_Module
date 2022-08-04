@@ -1723,10 +1723,8 @@ const items = [{
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "generateModal": () => (/* binding */ generateModal),
 /* harmony export */   "getDetails": () => (/* binding */ getDetails),
-/* harmony export */   "modalSwitcher": () => (/* binding */ modalSwitcher),
-/* harmony export */   "showDetails": () => (/* binding */ showDetails)
+/* harmony export */   "modalSwitcher": () => (/* binding */ modalSwitcher)
 /* harmony export */ });
 function modalSwitcher() {
   // const modalTrigger = document.querySelectorAll('[data-modal]'),
@@ -1757,19 +1755,20 @@ function modalSwitcher() {
     }
   });
 }
+
 function showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock) {
   return "\n    <div class=\"modal-content fade\">\n      <div class=\"modal-content_left\">\n        <div class=\"modal-content_img\">\n          <img src=\"./img/".concat(imgUrl, "\" alt=\"item img\">\n        </div>\n      </div>\n\n      <div class=\"modal-content_center\">\n        <div class=\"modal-content_descr\">\n          <h2 class=\"descr-title title_fz24\">").concat(name, "</h2>\n          <div class=\"descr-item bottom-item\">\n            <img class=\"descr-item_filledlike bottom-item_filledlike\" loading=\"lazy\"\n              src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n            <div class=\"descr-item_reviews bottom-item_reviews\">\n              <span class=\"descr-item_percent reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n              <span class=\"descr-item_above reviews-above\">Above avarage</span>\n            </div>\n            <div class=\"descr-item_order bottom-item_order\">\n              <span class=\"descr-item_quantity order-quantity\">").concat(orders, "</span>orders\n            </div>\n          </div>\n\n          <ul class=\"descr-list\">\n            <li class=\"descr-list_item\">Color: <span>").concat(color.join(', '), "</span></li>\n            <li class=\"descr-list_item\">Operating System: <span>").concat(os, "</span></li>\n            <li class=\"descr-list_item\">Chip: <span>").concat(chip, "</span></li>\n            <li class=\"descr-list_item\">Height: <span>").concat(height, "</span> cm</li>\n            <li class=\"descr-list_item\">Width: <span>").concat(width, "</span> cm</li>\n            <li class=\"descr-list_item\">Depth: <span>").concat(depth, "</span> cm</li>\n            <li class=\"descr-list_item\">Weight: <span>").concat(weight * 1000, "</span> g</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class=\"modal-content_right\">\n        <span class=\"modal-content_price price-sum\">$ ").concat(price, "</span>\n        <span class=\"modal-content_quantity status-quantity\">Stock: <span>").concat(inStock, "</span> pcs.</span>\n        <button class=\"modal-content_btn btn\">Add to cart</button>\n      </div>\n    </div>");
 }
+
 function generateModal(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock) {
   const modal = document.querySelector('.modal-container');
   modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock));
 }
+
 function getDetails(items) {
   let data = items;
   data.forEach((el, index) => {
-    if (data[index].id == data.id) {
-      generateModal(data[index].imgUrl, data[index].name, data[index].orderInfo.reviews, data[index].orderInfo.orders, data[index].color, data[index].os, data[index].chip.name, data[index].size.height, data[index].size.width, data[index].size.depth, data[index].size.weight, data[index].price, data[index].orderInfo.inStock);
-    }
+    generateModal(data[index].imgUrl, data[index].name, data[index].orderInfo.reviews, data[index].orderInfo.orders, data[index].color, data[index].os, data[index].chip.name, data[index].size.height, data[index].size.width, data[index].size.depth, data[index].size.weight, data[index].price, data[index].orderInfo.inStock);
   });
 }
 
@@ -2071,8 +2070,8 @@ document.addEventListener('DOMContentLoaded', function () {
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
-  (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex); //getDetails();
-
+  (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
+  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
   (0,_search_js__WEBPACK_IMPORTED_MODULE_5__.startSearch)();
 });
 })();

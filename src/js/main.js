@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   showSlides(slideIndex);
 
-  //getDetails();
+  getDetails(items);
 
   startSearch();
 });
