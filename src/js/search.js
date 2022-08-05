@@ -2,7 +2,7 @@ let input = document.querySelector('.goods-search_input'),
     searchBtn = document.querySelector('.goods-search_icon'),
     searchItems = document.querySelectorAll('.goods-item');
 
-function searchFunc() {
+const filter = function() {
   input.addEventListener('input', (ev) => {
     let searchValue = ev.target.value.trim();
     let search = new RegExp(searchValue, '/'+input+'/g');
@@ -15,22 +15,22 @@ function searchFunc() {
     }
 
     searchItems.forEach((el) => {
-      const searchCard = el.querySelector('.top_item');
-      const cardText = searchCard.textContent;
-      const isContainSearch = search.test(cardText);
+      // const searchCard = el.querySelector('.top_item');
+      // const cardText = searchCard.textContent;
+      // const isContainSearch = search.test(cardText);
 
-      if(!isContainSearch) {
+      if(el.innerHTML.indexOf(filter) > -1) {
         el.classList.add('hide');
       } else {
         el.classList.remove('hide');
       }
     });
   });
-}
+};
 
 export function startSearch() {
   searchBtn.addEventListener('click', (e) => {
-    searchFunc();
+    filter();
   });
 }
 
