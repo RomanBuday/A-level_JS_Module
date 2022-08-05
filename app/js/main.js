@@ -1727,9 +1727,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "modalSwitcher": () => (/* binding */ modalSwitcher)
 /* harmony export */ });
 function modalSwitcher() {
-  // const modalTrigger = document.querySelectorAll('[data-modal]'),
   const modalTrigger = document.querySelectorAll('.top-item_img'),
-        modal = document.querySelector('.modal');
+        modal = document.querySelector('.modal'); // const modalTrigger = document.querySelectorAll('[data-modal]'),
+
   modalTrigger.forEach(btn => {
     btn.addEventListener('click', () => {
       modal.classList.add('show');
@@ -1737,13 +1737,6 @@ function modalSwitcher() {
       document.body.style.overflow = 'hidden';
     });
   });
-
-  function closeModal() {
-    modal.classList.add('hide');
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-  }
-
   document.addEventListener('keydown', e => {
     if (e.code === "Escape") {
       closeModal();
@@ -1756,6 +1749,13 @@ function modalSwitcher() {
   });
 }
 
+function closeModal() {
+  const modal = document.querySelector('.modal');
+  modal.classList.add('hide');
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
 function showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock) {
   return "\n    <div class=\"modal-content fade\">\n      <div class=\"modal-content_left\">\n        <div class=\"modal-content_img\">\n          <img src=\"./img/".concat(imgUrl, "\" alt=\"item img\">\n        </div>\n      </div>\n\n      <div class=\"modal-content_center\">\n        <div class=\"modal-content_descr\">\n          <h2 class=\"descr-title title_fz24\">").concat(name, "</h2>\n          <div class=\"descr-item bottom-item\">\n            <img class=\"descr-item_filledlike bottom-item_filledlike\" loading=\"lazy\"\n              src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n            <div class=\"descr-item_reviews bottom-item_reviews\">\n              <span class=\"descr-item_percent reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n              <span class=\"descr-item_above reviews-above\">Above avarage</span>\n            </div>\n            <div class=\"descr-item_order bottom-item_order\">\n              <span class=\"descr-item_quantity order-quantity\">").concat(orders, "</span>orders\n            </div>\n          </div>\n\n          <ul class=\"descr-list\">\n            <li class=\"descr-list_item\">Color: <span>").concat(color.join(', '), "</span></li>\n            <li class=\"descr-list_item\">Operating System: <span>").concat(os, "</span></li>\n            <li class=\"descr-list_item\">Chip: <span>").concat(chip, "</span></li>\n            <li class=\"descr-list_item\">Height: <span>").concat(height, "</span> cm</li>\n            <li class=\"descr-list_item\">Width: <span>").concat(width, "</span> cm</li>\n            <li class=\"descr-list_item\">Depth: <span>").concat(depth, "</span> cm</li>\n            <li class=\"descr-list_item\">Weight: <span>").concat(weight * 1000, "</span> g</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class=\"modal-content_right\">\n        <span class=\"modal-content_price price-sum\">$ ").concat(price, "</span>\n        <span class=\"modal-content_quantity status-quantity\">Stock: <span>").concat(inStock, "</span> pcs.</span>\n        <button class=\"modal-content_btn btn\">Add to cart</button>\n      </div>\n    </div>");
 }
@@ -1766,9 +1766,9 @@ function generateModal(imgUrl, name, reviews, orders, color, os, chip, height, w
 }
 
 function getDetails(items) {
-  let data = items;
-  data.forEach((el, index) => {
-    generateModal(data[index].imgUrl, data[index].name, data[index].orderInfo.reviews, data[index].orderInfo.orders, data[index].color, data[index].os, data[index].chip.name, data[index].size.height, data[index].size.width, data[index].size.depth, data[index].size.weight, data[index].price, data[index].orderInfo.inStock);
+  items.forEach((el, index) => {
+    // if(index !== items[index].imgUrl) {
+    generateModal(items[index].imgUrl, items[index].name, items[index].orderInfo.reviews, items[index].orderInfo.orders, items[index].color, items[index].os, items[index].chip.name, items[index].size.height, items[index].size.width, items[index].size.depth, items[index].size.weight, items[index].price, items[index].orderInfo.inStock); // }
   });
 }
 
@@ -1790,10 +1790,10 @@ let input = document.querySelector('.goods-search_input'),
 
 function searchFunc() {
   input.addEventListener('input', ev => {
-    let value = ev.target.value.trim();
-    let search = new RegExp(value, 'gi');
+    let searchValue = ev.target.value.trim();
+    let search = new RegExp(searchValue, '/' + input + '/g');
 
-    if (value.length < 3) {
+    if (searchValue.length < 3) {
       searchItems.forEach(el => {
         el.classList.remove('hide');
       });

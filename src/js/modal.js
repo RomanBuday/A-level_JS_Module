@@ -1,7 +1,7 @@
 export function modalSwitcher() {
-  // const modalTrigger = document.querySelectorAll('[data-modal]'),
   const modalTrigger = document.querySelectorAll('.top-item_img'),
-        modal = document.querySelector('.modal');
+  modal = document.querySelector('.modal');
+  // const modalTrigger = document.querySelectorAll('[data-modal]'),
 
   modalTrigger.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -10,12 +10,6 @@ export function modalSwitcher() {
       document.body.style.overflow = 'hidden';
     });
   });
-
-  function closeModal() {
-    modal.classList.add('hide');
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-  }
 
   document.addEventListener('keydown', (e) => {
     if(e.code === "Escape") {
@@ -29,6 +23,14 @@ export function modalSwitcher() {
     }
   });
 }
+
+function closeModal() {
+  const modal = document.querySelector('.modal');
+  modal.classList.add('hide');
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
 
 function showDetails(imgUrl, name, reviews, orders, color, os, chip, height,
 width, depth, weight, price, inStock) {
@@ -84,22 +86,24 @@ function generateModal(imgUrl, name, reviews, orders, color, os, chip, height,
 }
 
 export function getDetails(items) {
-  let data = items;
 
-  data.forEach((el, index) => {
+  items.forEach((el, index) => {
+    // if(index !== items[index].imgUrl) {
       generateModal(
-        data[index].imgUrl,
-        data[index].name,
-        data[index].orderInfo.reviews,
-        data[index].orderInfo.orders,
-        data[index].color,
-        data[index].os,
-        data[index].chip.name,
-        data[index].size.height,
-        data[index].size.width,
-        data[index].size.depth,
-        data[index].size.weight,
-        data[index].price,
-        data[index].orderInfo.inStock);
+        items[index].imgUrl,
+        items[index].name,
+        items[index].orderInfo.reviews,
+        items[index].orderInfo.orders,
+        items[index].color,
+        items[index].os,
+        items[index].chip.name,
+        items[index].size.height,
+        items[index].size.width,
+        items[index].size.depth,
+        items[index].size.weight,
+        items[index].price,
+        items[index].orderInfo.inStock);
+    // }
+
   });
 }

@@ -4,10 +4,10 @@ let input = document.querySelector('.goods-search_input'),
 
 function searchFunc() {
   input.addEventListener('input', (ev) => {
-    let value = ev.target.value.trim();
-    let search = new RegExp(value, 'gi');
+    let searchValue = ev.target.value.trim();
+    let search = new RegExp(searchValue, '/'+input+'/g');
 
-    if (value.length < 3) {
+    if (searchValue.length < 3) {
       searchItems.forEach((el) => {
         el.classList.remove('hide');
       });
