@@ -1878,6 +1878,8 @@ function showSlides(n) {
     sliderBtn[slideIndex - 1].style.top = "50%";
     sliderBtn[slideIndex - 1].style.left = "30%";
   }
+
+  setTimeout(showSlides, 1000);
 }
 function plusSlides(n) {
   showSlides(slideIndex += n);

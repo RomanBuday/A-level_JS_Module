@@ -1,6 +1,6 @@
 const slides = document.querySelectorAll(".offer_slide"),
  sliderTitle = document.querySelectorAll(".header-bottom_title"),
- sliderBtn = document.querySelectorAll(".header-bottom_btn"),
+   sliderBtn = document.querySelectorAll(".header-bottom_btn"),
 
         prev = document.querySelector(".offer-slider_prev"),
         next = document.querySelector(".offer-slider_next");
@@ -42,6 +42,7 @@ export function showSlides(n) {
     sliderBtn[slideIndex - 1].style.top = "50%";
     sliderBtn[slideIndex - 1].style.left = "30%";
   }
+  setTimeout(showSlides, 1000);
 }
 
 export function plusSlides(n) {
