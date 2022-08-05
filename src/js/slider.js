@@ -19,6 +19,11 @@ export function showSlides(n) {
   slides.forEach(item => item.style.display = 'none');
   slides[slideIndex - 1].style.display = 'block';
   slides[slideIndex - 1].classList.add('fade');
+  slideIndex++;
+
+  if(slideIndex > slides.length) {
+    slideIndex = 1;
+  }
 
   if (slideIndex == 2 || slideIndex == 3 || slideIndex == 5) {
     sliderTitle[slideIndex - 1].classList.add('title-modify');
@@ -42,7 +47,8 @@ export function showSlides(n) {
     sliderBtn[slideIndex - 1].style.top = "50%";
     sliderBtn[slideIndex - 1].style.left = "30%";
   }
-  setTimeout(showSlides, 1000);
+
+  setTimeout(showSlides, 6000);
 }
 
 export function plusSlides(n) {
