@@ -1834,14 +1834,14 @@ function searchInput() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "plusSlides": () => (/* binding */ plusSlides),
-/* harmony export */   "showSlides": () => (/* binding */ showSlides)
+/* harmony export */   "showSlides": () => (/* binding */ showSlides),
+/* harmony export */   "slideIndex": () => (/* binding */ slideIndex)
 /* harmony export */ });
 const slides = document.querySelectorAll(".offer_slide"),
       sliderTitle = document.querySelectorAll(".header-bottom_title"),
-      sliderBtn = document.querySelectorAll(".header-bottom_btn"),
-      prev = document.querySelector(".offer-slider_prev"),
-      next = document.querySelector(".offer-slider_next");
+      sliderBtn = document.querySelectorAll(".header-bottom_btn"); // prev = document.querySelector(".offer-slider_prev"),
+// next = document.querySelector(".offer-slider_next");
+
 let slideIndex = 1;
 function showSlides(n) {
   if (n > slides.length) {
@@ -1855,9 +1855,7 @@ function showSlides(n) {
   slides.forEach(item => item.style.display = 'none');
   slides[slideIndex - 1].style.display = 'block';
   slides[slideIndex - 1].classList.add('fade');
-  slideIndex++; // if(n > slides.length) {
-  //   slideIndex = 1;
-  // }
+  slideIndex++;
 
   if (slideIndex == 2 || slideIndex == 3 || slideIndex == 5) {
     sliderTitle[slideIndex - 1].classList.add('title-modify');
@@ -1882,17 +1880,20 @@ function showSlides(n) {
     sliderBtn[slideIndex - 1].style.left = "30%";
   }
 
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
+  }
+
   setTimeout(showSlides, 6000);
-}
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-prev.addEventListener('click', () => {
-  plusSlides(-1);
-});
-next.addEventListener('click', () => {
-  plusSlides(+1);
-});
+} // export function plusSlides(n) {
+//   showSlides(slideIndex += n);
+// }
+// prev.addEventListener('click', () => {
+//   plusSlides(-1);
+// });
+// next.addEventListener('click', () => {
+//   plusSlides(+1);
+// });
 
 /***/ }),
 
