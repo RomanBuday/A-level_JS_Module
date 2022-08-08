@@ -296,6 +296,29 @@ a {
   object-fit: fill;
 }
 
+@media (max-width: 992px) {
+  .header-bottom_title {
+    font-size: 56px;
+  }
+}
+@media (max-width: 768px) {
+  .header-bottom_title {
+    font-size: 42px;
+  }
+  .header-bottom_btn {
+    padding: 10px 16px;
+    font-size: 18px;
+  }
+}
+@media (max-width: 576px) {
+  .header-bottom_title {
+    font-size: 24px;
+  }
+  .header-bottom_btn {
+    padding: 8px 1px;
+    font-size: 14px;
+  }
+}
 .goods {
   margin-top: 32px;
 }
@@ -702,6 +725,98 @@ a {
   margin-top: 10px;
 }
 
+@media (max-width: 992px) {
+  .goods-search {
+    height: 46px;
+    font-size: 16px;
+  }
+  .goods-search_filter {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+  .goods-search_settings {
+    width: 40px;
+    height: 40px;
+  }
+  .goods-filter {
+    margin-right: 10px;
+    width: 30%;
+  }
+  .filter-title {
+    font-size: 16px;
+  }
+  .filter-label {
+    font-size: 14px;
+  }
+  .filter-checkbox {
+    margin-left: 0;
+  }
+  .content-price {
+    padding: 0px 15px 15px 10px;
+  }
+  .content-color {
+    padding-left: 10px;
+  }
+  .content-memory {
+    padding-left: 10px;
+  }
+  .content-os {
+    padding-left: 10px;
+  }
+  .content-display {
+    padding-left: 10px;
+  }
+  .price-inner_input {
+    width: 138px;
+    font-size: 16px;
+  }
+  .price-inner_label {
+    font-size: 14px;
+  }
+  .top-item_img {
+    top: 0;
+  }
+  .top-item_btn {
+    font-size: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .goods-search {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }
+  .goods-search_input {
+    width: 70%;
+    font-size: 16px;
+  }
+  .goods-search_filter {
+    width: 35px;
+    height: 35px;
+  }
+  .goods-search_settings {
+    width: 35px;
+    height: 35px;
+  }
+  .goods-item {
+    width: 48%;
+  }
+}
+@media (max-width: 576px) {
+  .goods-wrapper {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .goods-search_input {
+    width: 50%;
+  }
+  .goods-filter {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
 .modal {
   position: fixed;
   top: 0;

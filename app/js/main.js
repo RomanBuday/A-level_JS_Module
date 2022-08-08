@@ -1855,11 +1855,9 @@ function showSlides(n) {
   slides.forEach(item => item.style.display = 'none');
   slides[slideIndex - 1].style.display = 'block';
   slides[slideIndex - 1].classList.add('fade');
-  slideIndex++;
-
-  if (slideIndex > slides.length) {
-    slideIndex = 1;
-  }
+  slideIndex++; // if(n > slides.length) {
+  //   slideIndex = 1;
+  // }
 
   if (slideIndex == 2 || slideIndex == 3 || slideIndex == 5) {
     sliderTitle[slideIndex - 1].classList.add('title-modify');
