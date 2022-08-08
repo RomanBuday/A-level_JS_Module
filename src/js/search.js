@@ -2,26 +2,54 @@ let input = document.querySelector('.goods-search_input'),
     searchBtn = document.querySelector('.goods-search_icon'),
     searchItems = document.querySelectorAll('.goods-item');
 
+// function searchFunc() {
+//   let searchValue = input.target.value.trim();
+//   let search = new RegExp(searchValue, '/'+input+'/g');
+
+//   console.log(search);
+//   if (searchValue.length < 3) {
+//     searchItems.forEach((el) => {
+//       el.classList.remove('hide');
+//     });
+//     return;
+//   }
+
+//   searchItems.forEach((el) => {
+//     const searchCard = el.querySelector('.top_item');
+//     const cardText = searchCard.textContent;
+//     const isContainSearch = search.test(cardText);
+
+//     if(!isContainSearch) {
+//       el.classList.add('hide');
+//     } else {
+//       el.classList.remove('hide');
+//     }
+//   });
+// }
+
 function searchFunc() {
-  let searchValue = input.target.value.trim();
-  let search = new RegExp(searchValue, '/'+input+'/g');
+  let filter = input.value.trim();
+  let itemTitle = document.querySelectorAll('.top-item_title');
+  //console.log(itemTitle);
 
-  if (searchValue.length < 3) {
-    searchItems.forEach((el) => {
-      el.classList.remove('hide');
-    });
-    return;
-  }
+  itemTitle.forEach(item => {
+    if (item.innerHTML.toLowerCase().indexOf(filter) > -1) {
+      item.style.display = '';
 
-  searchItems.forEach((el) => {
-    const searchCard = el.querySelector('.top_item');
-    const cardText = searchCard.textContent;
-    const isContainSearch = search.test(cardText);
+      //console.log(searchItems);
 
-    if(!isContainSearch) {
-      el.classList.add('hide');
+      searchItems.forEach(item => {
+        console.log(searchItems);
+        item.classList.add('show');
+        // searchItems.style.display = '';
+      });
     } else {
-      el.classList.remove('hide');
+      item.style.display = 'none';
+
+      searchItems.forEach(item => {
+        item.classList.add('hide');
+        // searchItems.style.display = 'none';
+      });
     }
   });
 }
