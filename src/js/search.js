@@ -7,7 +7,8 @@ function searchFunc(filter) {
     const title = item.querySelector('.top-item_title').innerHTML;
     if (title.toLowerCase().indexOf(filter) !== -1) {
       item.style.display = '';
-    } else {
+    }
+    else {
       item.style.display = 'none';
     }
   });
@@ -16,8 +17,9 @@ function searchFunc(filter) {
 export function searchInput() {
   input.addEventListener('input', (ev) => {
     const filterStr = ev.target.value.trim();
-    if(filterStr.length >= 3) {
+    if(filterStr.length >= 3 || filterStr.length == 0) {
       searchFunc(filterStr);
     }
   });
 }
+

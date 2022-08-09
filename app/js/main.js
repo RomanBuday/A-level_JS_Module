@@ -1816,7 +1816,7 @@ function searchInput() {
   input.addEventListener('input', ev => {
     const filterStr = ev.target.value.trim();
 
-    if (filterStr.length >= 3) {
+    if (filterStr.length >= 3 || filterStr.length == 0) {
       searchFunc(filterStr);
     }
   });
