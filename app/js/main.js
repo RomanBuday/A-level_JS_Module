@@ -1731,9 +1731,18 @@ function modalSwitcher() {
         modal = document.querySelector('.modal'); // const modalTrigger = document.querySelectorAll('[data-modal]'),
 
   modalTrigger.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', e => {
       modal.classList.add('show');
       modal.classList.remove('hide');
+      const id = e.target.getAttribute('data-id');
+      const modalToShow = document.querySelectorAll(".modal-content[data-id=\"".concat(id, "\"]"))[0];
+      const allModals = modal.querySelectorAll("modal-content");
+      allModals.forEach(m => {
+        m.classList.add('hide');
+        m.classList.remove('show');
+      });
+      modalToShow.classList.remove('hide');
+      modalToShow.classList.add('show');
       document.body.style.overflow = 'hidden';
     });
   });
@@ -1756,19 +1765,18 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-function showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock) {
-  return "\n    <div class=\"modal-content fade\">\n      <div class=\"modal-content_left\">\n        <div class=\"modal-content_img\">\n          <img src=\"./img/".concat(imgUrl, "\" alt=\"item img\">\n        </div>\n      </div>\n\n      <div class=\"modal-content_center\">\n        <div class=\"modal-content_descr\">\n          <h2 class=\"descr-title title_fz24\">").concat(name, "</h2>\n          <div class=\"descr-item bottom-item\">\n            <img class=\"descr-item_filledlike bottom-item_filledlike\" loading=\"lazy\"\n              src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n            <div class=\"descr-item_reviews bottom-item_reviews\">\n              <span class=\"descr-item_percent reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n              <span class=\"descr-item_above reviews-above\">Above avarage</span>\n            </div>\n            <div class=\"descr-item_order bottom-item_order\">\n              <span class=\"descr-item_quantity order-quantity\">").concat(orders, "</span>orders\n            </div>\n          </div>\n\n          <ul class=\"descr-list\">\n            <li class=\"descr-list_item\">Color: <span>").concat(color.join(', '), "</span></li>\n            <li class=\"descr-list_item\">Operating System: <span>").concat(os, "</span></li>\n            <li class=\"descr-list_item\">Chip: <span>").concat(chip, "</span></li>\n            <li class=\"descr-list_item\">Height: <span>").concat(height, "</span> cm</li>\n            <li class=\"descr-list_item\">Width: <span>").concat(width, "</span> cm</li>\n            <li class=\"descr-list_item\">Depth: <span>").concat(depth, "</span> cm</li>\n            <li class=\"descr-list_item\">Weight: <span>").concat(weight * 1000, "</span> g</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class=\"modal-content_right\">\n        <span class=\"modal-content_price price-sum\">$ ").concat(price, "</span>\n        <span class=\"modal-content_quantity status-quantity\">Stock: <span>").concat(inStock, "</span> pcs.</span>\n        <button class=\"modal-content_btn btn\">Add to cart</button>\n      </div>\n    </div>");
+function showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock, id) {
+  return "\n    <div class=\"modal-content fade\" data-id=\"".concat(id, "\">\n      <div class=\"modal-content_left\">\n        <div class=\"modal-content_img\">\n          <img src=\"./img/").concat(imgUrl, "\" alt=\"item img\">\n        </div>\n      </div>\n\n      <div class=\"modal-content_center\">\n        <div class=\"modal-content_descr\">\n          <h2 class=\"descr-title title_fz24\">").concat(name, "</h2>\n          <div class=\"descr-item bottom-item\">\n            <img class=\"descr-item_filledlike bottom-item_filledlike\" loading=\"lazy\"\n              src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n            <div class=\"descr-item_reviews bottom-item_reviews\">\n              <span class=\"descr-item_percent reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n              <span class=\"descr-item_above reviews-above\">Above avarage</span>\n            </div>\n            <div class=\"descr-item_order bottom-item_order\">\n              <span class=\"descr-item_quantity order-quantity\">").concat(orders, "</span>orders\n            </div>\n          </div>\n\n          <ul class=\"descr-list\">\n            <li class=\"descr-list_item\">Color: <span>").concat(color.join(', '), "</span></li>\n            <li class=\"descr-list_item\">Operating System: <span>").concat(os, "</span></li>\n            <li class=\"descr-list_item\">Chip: <span>").concat(chip, "</span></li>\n            <li class=\"descr-list_item\">Height: <span>").concat(height, "</span> cm</li>\n            <li class=\"descr-list_item\">Width: <span>").concat(width, "</span> cm</li>\n            <li class=\"descr-list_item\">Depth: <span>").concat(depth, "</span> cm</li>\n            <li class=\"descr-list_item\">Weight: <span>").concat(weight * 1000, "</span> g</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class=\"modal-content_right\">\n        <span class=\"modal-content_price price-sum\">$ ").concat(price, "</span>\n        <span class=\"modal-content_quantity status-quantity\">Stock: <span>").concat(inStock, "</span> pcs.</span>\n        <button class=\"modal-content_btn btn\">Add to cart</button>\n      </div>\n    </div>");
 }
 
-function generateModal(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock) {
+function generateModal(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock, id) {
   const modal = document.querySelector('.modal-container');
-  modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock));
+  modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock, id));
 }
 
 function getDetails(items) {
-  items.forEach((el, index) => {
-    // if(index !== items[index].imgUrl) {
-    generateModal(items[index].imgUrl, items[index].name, items[index].orderInfo.reviews, items[index].orderInfo.orders, items[index].color, items[index].os, items[index].chip.name, items[index].size.height, items[index].size.width, items[index].size.depth, items[index].size.weight, items[index].price, items[index].orderInfo.inStock); // }
+  items.forEach(el => {
+    generateModal(el.imgUrl, el.name, el.orderInfo.reviews, el.orderInfo.orders, el.color, el.os, el.chip.name, el.size.height, el.size.width, el.size.depth, el.size.weight, el.price, el.orderInfo.inStock, el.id);
   });
 }
 
@@ -1784,34 +1792,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "searchInput": () => (/* binding */ searchInput)
 /* harmony export */ });
-let input = document.querySelector('.goods-search_input'); // searchBtn = document.querySelector('.goods-search_icon'),
-// searchItems = document.querySelectorAll('.goods-item');
-// function searchFunc() {
-//   let searchValue = input.target.value.trim();
-//   let search = new RegExp(searchValue, '/'+input+'/g');
-//   console.log(search);
-//   if (searchValue.length < 3) {
-//     searchItems.forEach((el) => {
-//       el.classList.remove('hide');
-//     });
-//     return;
-//   }
-//   searchItems.forEach((el) => {
-//     const searchCard = el.querySelector('.top_item');
-//     const cardText = searchCard.textContent;
-//     const isContainSearch = search.test(cardText);
-//     if(!isContainSearch) {
-//       el.classList.add('hide');
-//     } else {
-//       el.classList.remove('hide');
-//     }
-//   });
-// }s
+let input = document.querySelector('.goods-search_input');
 
 function searchFunc(filter) {
-  //let filter = input.value.trim();
-  let items = document.querySelectorAll('.goods-item'); //console.log(itemTitle);
-
+  let items = document.querySelectorAll('.goods-item');
   items.forEach(item => {
     const title = item.querySelector('.top-item_title').innerHTML;
 
@@ -1821,12 +1805,7 @@ function searchFunc(filter) {
       item.style.display = 'none';
     }
   });
-} // export function startSearch() {
-//   searchBtn.addEventListener('click', (e) => {
-//     searchFunc();
-//   });
-// }
-
+}
 
 function searchInput() {
   input.addEventListener('input', ev => {
@@ -1926,16 +1905,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function getTabs(url, fn) {
   let data = url;
-  data.forEach((el, index) => {
-    generateTabs(data[index].imgUrl, data[index].name, data[index].orderInfo.inStock, data[index].price, data[index].orderInfo.reviews, data[index].orderInfo.orders);
+  data.forEach(el => {
+    generateTabs(el.imgUrl, el.name, el.orderInfo.inStock, el.price, el.orderInfo.reviews, el.orderInfo.orders, el.id);
   }); // fn();
 }
-function createTab(imgUrl, name, inStock, price, reviews, orders) {
-  return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
+function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
+  return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\" data-id=\"").concat(id, "\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
 }
-function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
+function generateTabs(imgUrl, name, inStock, price, reviews, orders, id) {
   const store = document.querySelector('.goods-store');
-  store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
+  store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders, id));
 }
 function toFavorite() {
   document.querySelectorAll('.top-item_like').forEach(el => {

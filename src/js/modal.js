@@ -4,9 +4,21 @@ export function modalSwitcher() {
   // const modalTrigger = document.querySelectorAll('[data-modal]'),
 
   modalTrigger.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', e  => {
       modal.classList.add('show');
       modal.classList.remove('hide');
+
+      const id = e.target.getAttribute('data-id');
+      const modalToShow = document.querySelectorAll(`.modal-content[data-id="${id}"]`)[0];
+      const allModals = modal.querySelectorAll(`modal-content`);
+
+      allModals.forEach(m => {
+        m.classList.add('hide');
+        m.classList.remove('show');
+      });
+
+      modalToShow.classList.remove('hide');
+      modalToShow.classList.add('show');
       document.body.style.overflow = 'hidden';
     });
   });
@@ -33,9 +45,9 @@ function closeModal() {
 
 
 function showDetails(imgUrl, name, reviews, orders, color, os, chip, height,
-width, depth, weight, price, inStock) {
+width, depth, weight, price, inStock, id) {
   return `
-    <div class="modal-content fade">
+    <div class="modal-content fade" data-id="${id}">
       <div class="modal-content_left">
         <div class="modal-content_img">
           <img src="./img/${imgUrl}" alt="item img">
@@ -78,32 +90,29 @@ width, depth, weight, price, inStock) {
 }
 
 function generateModal(imgUrl, name, reviews, orders, color, os, chip, height,
-  width, depth, weight, price, inStock) {
+  width, depth, weight, price, inStock, id) {
   const modal = document.querySelector('.modal-container');
 
   modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height,
-    width, depth, weight, price, inStock));
+    width, depth, weight, price, inStock, id));
 }
 
 export function getDetails(items) {
-
-  items.forEach((el, index) => {
-    // if(index !== items[index].imgUrl) {
+  items.forEach((el => {
       generateModal(
-        items[index].imgUrl,
-        items[index].name,
-        items[index].orderInfo.reviews,
-        items[index].orderInfo.orders,
-        items[index].color,
-        items[index].os,
-        items[index].chip.name,
-        items[index].size.height,
-        items[index].size.width,
-        items[index].size.depth,
-        items[index].size.weight,
-        items[index].price,
-        items[index].orderInfo.inStock);
-    // }
-
-  });
+        el.imgUrl,
+        el.name,
+        el.orderInfo.reviews,
+        el.orderInfo.orders,
+        el.color,
+        el.os,
+        el.chip.name,
+        el.size.height,
+        el.size.width,
+        el.size.depth,
+        el.size.weight,
+        el.price,
+        el.orderInfo.inStock,
+        el.id);
+  }));
 }
