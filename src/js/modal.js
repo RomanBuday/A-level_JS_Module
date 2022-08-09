@@ -83,7 +83,7 @@ width, depth, weight, price, inStock, id) {
       <div class="modal-content_right">
         <span class="modal-content_price price-sum">$ ${price}</span>
         <span class="modal-content_quantity status-quantity">Stock: <span>${inStock}</span> pcs.</span>
-        <button class="modal-content_btn btn">Add to cart</button>
+        <button class="modal-content_btn btn ${inStockCheckModal(inStock)}">Add to cart</button>
       </div>
     </div>`;
 }
@@ -114,4 +114,10 @@ export function getDetails(items) {
         el.orderInfo.inStock,
         el.id);
   }));
+}
+
+function inStockCheckModal(inStock) {
+  if(inStock == 0) {
+    return "btn-unset";
+  }
 }

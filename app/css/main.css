@@ -142,6 +142,12 @@ a {
   border-radius: 5px;
   border: none;
 }
+.btn-unset {
+  background-color: var(--btn-color-focus);
+  -webkit-filter: drop-shadow(2px 4px 6px var(--accent-color));
+  filter: drop-shadow(2px 4px 6px var(--accent-color));
+  cursor: auto;
+}
 .btn:hover {
   background-color: var(--btn-color-focus);
   -webkit-filter: drop-shadow(2px 4px 6px var(--accent-color));

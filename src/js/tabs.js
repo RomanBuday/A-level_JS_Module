@@ -28,7 +28,7 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
           <span class ="price-text">Price:</span>
           <span class="price-sum">${price} $</span>
         </div>
-        <button class="btn top-item_btn">Add to cart</button>
+        <button class="btn top-item_btn ${inStockCheck(inStock)}">Add to cart</button>
       </div>
       <div class="bottom-item">
         <img class="bottom-item_filledlike" loading="lazy" src="img/svg/like_filled_red.svg" alt="icon like filled">
@@ -69,5 +69,11 @@ function inStockSwitcher(inStock) {
     return "img/svg/check.svg";
   } else {
     return "img/svg/check_zero.svg";
+  }
+}
+
+function inStockCheck(inStock) {
+  if(inStock == 0) {
+    return "btn-unset";
   }
 }
