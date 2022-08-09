@@ -1728,21 +1728,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function modalSwitcher() {
   const modalTrigger = document.querySelectorAll('.top-item_img'),
-        modal = document.querySelector('.modal'); // const modalTrigger = document.querySelectorAll('[data-modal]'),
-
+        modal = document.querySelector('.modal');
   modalTrigger.forEach(btn => {
     btn.addEventListener('click', e => {
       modal.classList.add('show');
       modal.classList.remove('hide');
       const id = e.target.getAttribute('data-id');
       const modalToShow = document.querySelectorAll(".modal-content[data-id=\"".concat(id, "\"]"))[0];
-      const allModals = modal.querySelectorAll("modal-content");
+      const allModals = modal.querySelectorAll('.modal-content');
       allModals.forEach(m => {
         m.classList.add('hide');
-        m.classList.remove('show');
+        m.classList.remove('showFlex');
       });
       modalToShow.classList.remove('hide');
-      modalToShow.classList.add('show');
+      modalToShow.classList.add('showFlex');
       document.body.style.overflow = 'hidden';
     });
   });

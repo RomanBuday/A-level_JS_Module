@@ -922,6 +922,12 @@ a {
   display: none;
 }
 
+.showFlex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .fade {
   -webkit-animation-name: fade;
   animation-name: fade;
