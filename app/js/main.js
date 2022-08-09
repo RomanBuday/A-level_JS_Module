@@ -1782,12 +1782,11 @@ function getDetails(items) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "searchInput": () => (/* binding */ searchInput),
-/* harmony export */   "startSearch": () => (/* binding */ startSearch)
+/* harmony export */   "searchInput": () => (/* binding */ searchInput)
 /* harmony export */ });
-let input = document.querySelector('.goods-search_input'),
-    searchBtn = document.querySelector('.goods-search_icon'),
-    searchItems = document.querySelectorAll('.goods-item'); // function searchFunc() {
+let input = document.querySelector('.goods-search_input'); // searchBtn = document.querySelector('.goods-search_icon'),
+// searchItems = document.querySelectorAll('.goods-item');
+// function searchFunc() {
 //   let searchValue = input.target.value.trim();
 //   let search = new RegExp(searchValue, '/'+input+'/g');
 //   console.log(search);
@@ -1807,37 +1806,35 @@ let input = document.querySelector('.goods-search_input'),
 //       el.classList.remove('hide');
 //     }
 //   });
-// }
+// }s
 
-function searchFunc() {
-  let filter = input.value.trim();
-  let itemTitle = document.querySelectorAll('.top-item_title'); //console.log(itemTitle);
+function searchFunc(filter) {
+  //let filter = input.value.trim();
+  let items = document.querySelectorAll('.goods-item'); //console.log(itemTitle);
 
-  itemTitle.forEach(item => {
-    if (item.innerHTML.toLowerCase().indexOf(filter) > -1) {
-      item.style.display = ''; //console.log(searchItems);
+  items.forEach(item => {
+    const title = item.querySelector('.top-item_title').innerHTML;
 
-      searchItems.forEach(item => {
-        console.log(searchItems);
-        item.classList.add('show'); // searchItems.style.display = '';
-      });
+    if (title.toLowerCase().indexOf(filter) !== -1) {
+      item.style.display = '';
     } else {
       item.style.display = 'none';
-      searchItems.forEach(item => {
-        item.classList.add('hide'); // searchItems.style.display = 'none';
-      });
     }
   });
-}
+} // export function startSearch() {
+//   searchBtn.addEventListener('click', (e) => {
+//     searchFunc();
+//   });
+// }
 
-function startSearch() {
-  searchBtn.addEventListener('click', e => {
-    searchFunc();
-  });
-}
+
 function searchInput() {
   input.addEventListener('input', ev => {
-    searchFunc();
+    const filterStr = ev.target.value.trim();
+
+    if (filterStr.length >= 3) {
+      searchFunc(filterStr);
+    }
   });
 }
 
@@ -2041,13 +2038,12 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.startSearch, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
   (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
-  (0,_search_js__WEBPACK_IMPORTED_MODULE_5__.startSearch)();
   (0,_search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput)();
 });
 })();
