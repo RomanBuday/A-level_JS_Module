@@ -11,8 +11,11 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "accordionFilter": () => (/* binding */ accordionFilter),
+/* harmony export */   "priceRange": () => (/* binding */ priceRange),
 /* harmony export */   "showFilter": () => (/* binding */ showFilter)
 /* harmony export */ });
+/* harmony import */ var _items_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./items.js */ "./src/js/items.js");
+
 function accordionFilter() {
   const accordionBtns = document.querySelectorAll(".filter-title");
   accordionBtns.forEach(accordion => {
@@ -51,7 +54,24 @@ function showFilter() {
       }
     }
   });
+} //-----------------------------------------------
+
+function priceRange() {
+  let maxPrice = 0;
+  let minPrice = 0;
+  let items = document.querySelectorAll('.goods-item');
+  let arrPrice = [];
+  items.forEach(item => {
+    let priceStr = item.querySelector('.price-sum').textContent;
+    arrPrice.push(parseInt(priceStr.match(/\d+/)));
+    maxPrice = Math.max(...arrPrice);
+    minPrice = Math.min(...arrPrice);
+  });
+  document.querySelector(".price-inner_input[data-price = 'minPrice']").placeholder = minPrice;
+  document.querySelector(".price-inner_input[data-price = 'maxPrice']").placeholder = maxPrice;
 }
+
+function PriceFilter() {}
 
 /***/ }),
 
@@ -2025,12 +2045,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // let tabItems = [...items];
+// let filterState = {
+//   minPrice(),
+//   render(),
+// };
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, _filter_js__WEBPACK_IMPORTED_MODULE_2__.priceRange, 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
+  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.priceRange)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
   (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);

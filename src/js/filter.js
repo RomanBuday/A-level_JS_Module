@@ -1,3 +1,5 @@
+import {items} from "./items.js";
+
 export function accordionFilter() {
   const accordionBtns = document.querySelectorAll(".filter-title");
 
@@ -38,3 +40,29 @@ export function showFilter() {
     }
   });
 }
+
+//-----------------------------------------------
+
+export function priceRange() {
+  let maxPrice = 0;
+  let minPrice = 0;
+
+  let items = document.querySelectorAll('.goods-item');
+
+  let arrPrice = [];
+
+  items.forEach(item => {
+    let priceStr = item.querySelector('.price-sum').textContent;
+    arrPrice.push(parseInt(priceStr.match(/\d+/)));
+    maxPrice = Math.max(...arrPrice);
+    minPrice = Math.min(...arrPrice);
+  });
+
+  document.querySelector(`.price-inner_input[data-price = 'minPrice']`).placeholder=minPrice;
+  document.querySelector(`.price-inner_input[data-price = 'maxPrice']`).placeholder=maxPrice;
+}
+
+function PriceFilter() {
+
+}
+
