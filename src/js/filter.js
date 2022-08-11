@@ -43,6 +43,26 @@ export function showFilter() {
 
 //-----------------------------------------------
 
+// function priceRange() {
+//   let maxPrice = 0;
+//   let minPrice = 0;
+
+//   let items = document.querySelectorAll('.goods-item');
+
+//   let arrPrice = [];
+
+//   items.forEach(item => {
+//     let priceStr = item.querySelector('.price-sum').textContent;
+//     arrPrice.push(parseInt(priceStr.match(/\d+/)));
+//     maxPrice = Math.max(...arrPrice);
+//     minPrice = Math.min(...arrPrice);
+//   });
+
+//   document.querySelector(`.price-inner_input[data-price = 'minPrice']`).placeholder = minPrice;
+//   document.querySelector(`.price-inner_input[data-price = 'maxPrice']`).placeholder = maxPrice;
+
+// }
+
 export function priceRange() {
   let maxPrice = 0;
   let minPrice = 0;
@@ -62,7 +82,23 @@ export function priceRange() {
   document.querySelector(`.price-inner_input[data-price = 'maxPrice']`).placeholder=maxPrice;
 }
 
-function PriceFilter() {
+function colorFilter() {
+  let items = document.querySelectorAll('.goods-item');
 
+  // items.forEach(item => {
+    // const color = item.querySelector('.descr-list_item').textContent;
+    // console.log(color);
+    // if (title.toLowerCase().indexOf(filter) !== -1) {
+    //   item.style.display = '';
+    // }
+    // else {
+    //   item.style.display = 'none';
+    // }
+  // });
+}
+
+export function priceFilter() {
+  colorFilter();
+  priceRange();
 }
 
