@@ -14,6 +14,7 @@
   <title>MacOutlet</title>
   <meta name="description" content="Портфолио создание магазина">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/main.css">
   <script defer src="js/main.js"></script>
 </head>
@@ -32,10 +33,57 @@
       </div>
     </div>
 
-    <div class="header-bottom">
-        <h1 class="title title_fz72 header-bottom_title">AirPods Pro</h1>
-        <button class="btn header-bottom_btn">Add to cart</button>
-        <img class="header-bottom_img" src="img/banners/airpods_pro_banner.png" alt="banner">
+    <div class="offer-slider header-bottom">
+      <div class="offer-slider_counter">
+        <!-- <div class="offer-slider_prev">
+        </div>
+        <div class="offer-slider_next">
+        </div> -->
+      </div>
+
+      <div class="offer-slider_wrapper">
+        <div class="offer_slide">
+          <h1 class="title title_fz72 header-bottom_title">AirPods Pro</h1>
+          <button class="btn header-bottom_btn">Add to cart</button>
+          <img class="header-bottom_img" src="img/banners/airpods_pro_banner.png" alt="banner">
+        </div>
+
+        <div class="offer_slide">
+          <h1 class="title title_fz72 header-bottom_title">AirPods Max</h1>
+          <button class="btn header-bottom_btn">Add to cart</button>
+          <img class="header-bottom_img" src="img/banners/air_pods_max_banner.jpg" alt="banner">
+        </div>
+
+        <div class="offer_slide">
+          <h1 class="title title_fz72 header-bottom_title">Apple TV</h1>
+          <button class="btn header-bottom_btn">Add to cart</button>
+          <img class="header-bottom_img" src="img/banners/apple_tv_banner.png" alt="banner">
+        </div>
+
+        <div class="offer_slide">
+          <h1 class="title title_fz72 header-bottom_title">Ipad Air</h1>
+          <button class="btn header-bottom_btn">Add to cart</button>
+          <img class="header-bottom_img" src="img/banners/ipad_air_banner.jpg" alt="banner">
+        </div>
+
+        <div class="offer_slide">
+          <h1 class="title title_fz72 header-bottom_title">IPhone 12</h1>
+          <button class="btn header-bottom_btn">Add to cart</button>
+          <img class="header-bottom_img" src="img/banners/iphone_12_banner.jpg" alt="banner">
+        </div>
+
+        <div class="offer_slide">
+          <h1 class="title title_fz72 header-bottom_title">Mac Book</h1>
+          <button class="btn header-bottom_btn">Add to cart</button>
+          <img class="header-bottom_img" src="img/banners/mac_book_banner.jpg" alt="banner">
+        </div>
+
+        <div class="offer_slide">
+          <h1 class="title title_fz72 header-bottom_title">Apple Watch 4</h1>
+          <button class="btn header-bottom_btn">Add to cart</button>
+          <img class="header-bottom_img" src="img/banners/watch_banner.jpg" alt="banner">
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -56,11 +104,179 @@
       </div>
     </div>
 
-    <div class="goods-store">
+    <section class="goods-wrapper">
+      <aside class="goods-filter hide">
+        <h2 class="filter-title title title_fz18">Price</h2>
+        <div class="filter-content">
+          <div class="filter-content_divider"></div>
+          <div class="content-price">
+            <div class="price-inner">
+              <label  class="price-inner_label">From
+                <input class="price-inner_input" type="number" placeholder="350">
+              </label>
+            </div>
+            <div class="price-inner">
+              <label class="price-inner_label">To
+                <input class="price-inner_input" type="number" placeholder="1350">
+              </label>
+            </div>
+          </div>
+        </div>
 
-    </div>
+        <h2 class="filter-title title title_fz18">Color</h2>
+        <div class="filter-content">
+          <div class="filter-content_divider"></div>
+          <div class="content-color">
+            <div class="color-inner">
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Red</label>
+            </div>
+            <div class="color-inner">
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Green</label>
+            </div>
+            <div class="color-inner">
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Black</label>
+            </div>
+            <div class="color-inner">
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">White</label>
+            </div>
+            <div class="color-inner">
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Blue</label>
+            </div>
+            <div class="color-inner">
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Grey</label>
+            </div>
+            <div class="color-inner">
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Gold</label>
+            </div>
+            <div class="color-inner">
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Yelow</label>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="filter-title title title_fz18">Memory</h2>
+        <div class="filter-content">
+          <div class="filter-content_divider"></div>
+          <div class="content-memory">
+            <div class="memory-inner">
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">32 Gb</label>
+            </div>
+            <div class="memory-inner">
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">512 Gb</label>
+            </div>
+            <div class="memory-inner">
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">64 Gb</label>
+            </div>
+            <div class="memory-inner">
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">1 Tb</label>
+            </div>
+            <div class="memory-inner">
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">128 Gb</label>
+            </div>
+            <div class="memory-inner">
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">2 Tb</label>
+            </div>
+            <div class="memory-inner">
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">256 Gb</label>
+            </div>
+            <div class="memory-inner">
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">4 Tb</label>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="filter-title title title_fz18">OS</h2>
+        <div class="filter-content">
+          <div class="filter-content_divider"></div>
+          <div class="content-os">
+            <div class="os-inner">
+              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox">IOS</label>
+            </div>
+            <div class="os-inner">
+              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox">Mac OS</label>
+            </div>
+            <div class="os-inner">
+              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox">tvOS</label>
+            </div>
+            <div class="os-inner">
+              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox">Watch OS</label>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="filter-title title title_fz18">Display</h2>
+        <div class="filter-content">
+          <div class="filter-content_divider"></div>
+          <div class="content-display">
+            <div class="display-inner">
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">2 — 5 inch</label>
+            </div>
+            <div class="display-inner">
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">5 — 7 inch</label>
+            </div>
+            <div class="display-inner">
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">7 — 12 inch</label>
+            </div>
+            <div class="display-inner">
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">12 — 16 inch</label>
+            </div>
+            <div class="display-inner">
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">+ 16 inch</label>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="goods-store">
+
+      </div>
+    </section>
   </div>
 </section>
+
+      <div class="modal">
+  <div class="container modal-container">
+    <!-- <div class="modal-content fade">
+      <div class="modal-content_left">
+        <div class="modal-content_img">
+          <img src="./img/${imgUrl}" alt="item img">
+        </div>
+      </div>
+
+      <div class="modal-content_center">
+        <div class="modal-content_descr">
+          <h2 class="descr-title title_fz24">${name}</h2>
+          <div class="descr-item bottom-item">
+            <img class="descr-item_filledlike bottom-item_filledlike" loading="lazy" src="img/svg/like_filled_red.svg" alt="icon like filled">
+            <div class="descr-item_reviews bottom-item_reviews">
+              <span class="descr-item_percent reviews-percent"><span>${reviews}%</span>Positive reviews</span>
+              <span class="descr-item_above reviews-above">Above avarage</span>
+            </div>
+            <div class="descr-item_order bottom-item_order">
+              <span class="descr-item_quantity order-quantity">${orders}</span>orders
+            </div>
+          </div>
+
+          <ul class="descr-list">
+            <li class="descr-list_item">Color: <span>${color}</span></li>
+            <li class="descr-list_item">Operating System: <span>${os}</span></li>
+            <li class="descr-list_item">Chip: <span>${chip}</span></li>
+            <li class="descr-list_item">Height: <span>${height}</span></li>
+            <li class="descr-list_item">Width: <span>${width}</span></li>
+            <li class="descr-list_item">Depth: <span>${depth}</span></li>
+            <li class="descr-list_item">Weight: <span>${weight}</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modal-content_right">
+        <span class="modal-content_price price-sum">$ ${price}</span>
+        <span class="modal-content_quantity status-quantity">Stock: <span>${inStock}</span> pcs.</span>
+        <button class="modal-content_btn btn">Add to cart</button>
+      </div>
+    </div> -->
+  </div>
+</div>
 
     </main>
   </div>

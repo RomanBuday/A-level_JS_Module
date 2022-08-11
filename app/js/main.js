@@ -2,6 +2,59 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/filter.js":
+/*!**************************!*\
+  !*** ./src/js/filter.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "accordionFilter": () => (/* binding */ accordionFilter),
+/* harmony export */   "showFilter": () => (/* binding */ showFilter)
+/* harmony export */ });
+function accordionFilter() {
+  const accordionBtns = document.querySelectorAll(".filter-title");
+  accordionBtns.forEach(accordion => {
+    accordion.onclick = function () {
+      this.classList.toggle("is-open");
+      let content = this.nextElementSibling;
+
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    };
+  });
+}
+function showFilter() {
+  const filterBtn = document.querySelector(".goods-search_filter");
+  const filterAside = document.querySelector(".goods-filter");
+  const showItems = document.querySelectorAll(".goods-item");
+  filterBtn.addEventListener('click', e => {
+    if (filterBtn.classList.contains("filter-hide")) {
+      filterBtn.classList.remove("filter-hide");
+      filterAside.classList.remove("hide");
+      filterAside.classList.add("show");
+
+      for (let i = 0, length = showItems.length; i < length; i++) {
+        showItems[i].style.width = "48%";
+      }
+    } else {
+      filterBtn.classList.add("filter-hide");
+      filterAside.classList.add("hide");
+      filterAside.classList.remove("show");
+
+      for (let i = 0, length = showItems.length; i < length; i++) {
+        showItems[i].style.width = "30%";
+      }
+    }
+  });
+}
+
+/***/ }),
+
 /***/ "./src/js/items.js":
 /*!*************************!*\
   !*** ./src/js/items.js ***!
@@ -1662,6 +1715,186 @@ const items = [{
 
 /***/ }),
 
+/***/ "./src/js/modal.js":
+/*!*************************!*\
+  !*** ./src/js/modal.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getDetails": () => (/* binding */ getDetails),
+/* harmony export */   "modalSwitcher": () => (/* binding */ modalSwitcher)
+/* harmony export */ });
+function modalSwitcher() {
+  const modalTrigger = document.querySelectorAll('.top-item_img'),
+        modal = document.querySelector('.modal');
+  modalTrigger.forEach(btn => {
+    btn.addEventListener('click', e => {
+      modal.classList.add('show');
+      modal.classList.remove('hide');
+      const id = e.target.getAttribute('data-id');
+      const modalToShow = document.querySelectorAll(".modal-content[data-id=\"".concat(id, "\"]"))[0];
+      const allModals = modal.querySelectorAll('.modal-content');
+      allModals.forEach(m => {
+        m.classList.add('hide');
+        m.classList.remove('showFlex');
+      });
+      modalToShow.classList.remove('hide');
+      modalToShow.classList.add('showFlex');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.code === "Escape") {
+      closeModal();
+    }
+  });
+  modal.addEventListener('click', e => {
+    if (e.target === modal && modal.classList.contains('show')) {
+      closeModal();
+    }
+  });
+}
+
+function closeModal() {
+  const modal = document.querySelector('.modal');
+  modal.classList.add('hide');
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock, id) {
+  return "\n    <div class=\"modal-content fade\" data-id=\"".concat(id, "\">\n      <div class=\"modal-content_left\">\n        <div class=\"modal-content_img\">\n          <img src=\"./img/").concat(imgUrl, "\" alt=\"item img\">\n        </div>\n      </div>\n\n      <div class=\"modal-content_center\">\n        <div class=\"modal-content_descr\">\n          <h2 class=\"descr-title title_fz24\">").concat(name, "</h2>\n          <div class=\"descr-item bottom-item\">\n            <img class=\"descr-item_filledlike bottom-item_filledlike\" loading=\"lazy\"\n              src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n            <div class=\"descr-item_reviews bottom-item_reviews\">\n              <span class=\"descr-item_percent reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n              <span class=\"descr-item_above reviews-above\">Above avarage</span>\n            </div>\n            <div class=\"descr-item_order bottom-item_order\">\n              <span class=\"descr-item_quantity order-quantity\">").concat(orders, "</span>orders\n            </div>\n          </div>\n\n          <ul class=\"descr-list\">\n            <li class=\"descr-list_item\">Color: <span>").concat(color.join(', '), "</span></li>\n            <li class=\"descr-list_item\">Operating System: <span>").concat(os, "</span></li>\n            <li class=\"descr-list_item\">Chip: <span>").concat(chip, "</span></li>\n            <li class=\"descr-list_item\">Height: <span>").concat(height, "</span> cm</li>\n            <li class=\"descr-list_item\">Width: <span>").concat(width, "</span> cm</li>\n            <li class=\"descr-list_item\">Depth: <span>").concat(depth, "</span> cm</li>\n            <li class=\"descr-list_item\">Weight: <span>").concat(weight * 1000, "</span> g</li>\n          </ul>\n        </div>\n      </div>\n\n      <div class=\"modal-content_right\">\n        <span class=\"modal-content_price price-sum\">$ ").concat(price, "</span>\n        <span class=\"modal-content_quantity status-quantity\">Stock: <span>").concat(inStock, "</span> pcs.</span>\n        <button class=\"modal-content_btn btn ").concat(inStockCheckModal(inStock), "\">Add to cart</button>\n      </div>\n    </div>");
+}
+
+function generateModal(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock, id) {
+  const modal = document.querySelector('.modal-container');
+  modal.insertAdjacentHTML('beforeend', showDetails(imgUrl, name, reviews, orders, color, os, chip, height, width, depth, weight, price, inStock, id));
+}
+
+function getDetails(items) {
+  items.forEach(el => {
+    generateModal(el.imgUrl, el.name, el.orderInfo.reviews, el.orderInfo.orders, el.color, el.os, el.chip.name, el.size.height, el.size.width, el.size.depth, el.size.weight, el.price, el.orderInfo.inStock, el.id);
+  });
+}
+
+function inStockCheckModal(inStock) {
+  if (inStock == 0) {
+    return "btn-unset";
+  }
+}
+
+/***/ }),
+
+/***/ "./src/js/search.js":
+/*!**************************!*\
+  !*** ./src/js/search.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "searchInput": () => (/* binding */ searchInput)
+/* harmony export */ });
+let input = document.querySelector('.goods-search_input');
+
+function searchFunc(filter) {
+  let items = document.querySelectorAll('.goods-item');
+  items.forEach(item => {
+    const title = item.querySelector('.top-item_title').innerHTML;
+
+    if (title.toLowerCase().indexOf(filter) !== -1) {
+      item.style.display = '';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
+
+function searchInput() {
+  input.addEventListener('input', ev => {
+    const filterStr = ev.target.value.toLowerCase().trim();
+
+    if (filterStr.length >= 3 || filterStr.length == 0) {
+      searchFunc(filterStr);
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./src/js/slider.js":
+/*!**************************!*\
+  !*** ./src/js/slider.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "showSlides": () => (/* binding */ showSlides),
+/* harmony export */   "slideIndex": () => (/* binding */ slideIndex)
+/* harmony export */ });
+const slides = document.querySelectorAll(".offer_slide"),
+      sliderTitle = document.querySelectorAll(".header-bottom_title"),
+      sliderBtn = document.querySelectorAll(".header-bottom_btn"); // prev = document.querySelector(".offer-slider_prev"),
+// next = document.querySelector(".offer-slider_next");
+
+let slideIndex = 1;
+function showSlides(n) {
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+
+  slides.forEach(item => item.style.display = 'none');
+  slides[slideIndex - 1].style.display = 'block';
+  slides[slideIndex - 1].classList.add('fade');
+  slideIndex++;
+
+  if (slideIndex == 2 || slideIndex == 3 || slideIndex == 5) {
+    sliderTitle[slideIndex - 1].classList.add('title-modify');
+  }
+
+  if (slideIndex == 3) {
+    sliderTitle[slideIndex - 1].style.top = "25%";
+    sliderTitle[slideIndex - 1].style.left = "18%";
+    sliderBtn[slideIndex - 1].style.top = "40%";
+    sliderBtn[slideIndex - 1].style.left = "18%";
+  }
+
+  if (slideIndex == 5) {
+    sliderTitle[slideIndex - 1].style.top = "17%";
+    sliderBtn[slideIndex - 1].style.top = "45%";
+  }
+
+  if (slideIndex == 7) {
+    sliderTitle[slideIndex - 1].style.top = "40%";
+    sliderTitle[slideIndex - 1].style.left = "30%";
+    sliderBtn[slideIndex - 1].style.top = "50%";
+    sliderBtn[slideIndex - 1].style.left = "30%";
+  }
+
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
+  }
+
+  setTimeout(showSlides, 6000);
+} // export function plusSlides(n) {
+//   showSlides(slideIndex += n);
+// }
+// prev.addEventListener('click', () => {
+//   plusSlides(-1);
+// });
+// next.addEventListener('click', () => {
+//   plusSlides(+1);
+// });
+
+/***/ }),
+
 /***/ "./src/js/tabs.js":
 /*!************************!*\
   !*** ./src/js/tabs.js ***!
@@ -1677,16 +1910,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 function getTabs(url, fn) {
   let data = url;
-  data.forEach((el, index) => {
-    generateTabs(data[index].imgUrl, data[index].name, data[index].orderInfo.inStock, data[index].price, data[index].orderInfo.reviews, data[index].orderInfo.orders);
+  data.forEach(el => {
+    generateTabs(el.imgUrl, el.name, el.orderInfo.inStock, el.price, el.orderInfo.reviews, el.orderInfo.orders, el.id);
   }); // fn();
 }
-function createTab(imgUrl, name, inStock, price, reviews, orders) {
-  return "\n    <div class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
+function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
+  return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\" data-id=\"").concat(id, "\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn ").concat(inStockCheck(inStock), "\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
 }
-function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
+function generateTabs(imgUrl, name, inStock, price, reviews, orders, id) {
   const store = document.querySelector('.goods-store');
-  store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
+  store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders, id));
 }
 function toFavorite() {
   document.querySelectorAll('.top-item_like').forEach(el => {
@@ -1707,6 +1940,12 @@ function inStockSwitcher(inStock) {
     return "img/svg/check.svg";
   } else {
     return "img/svg/check_zero.svg";
+  }
+}
+
+function inStockCheck(inStock) {
+  if (inStock == 0) {
+    return "btn-unset";
   }
 }
 
@@ -1777,11 +2016,25 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _items_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./items.js */ "./src/js/items.js");
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tabs.js */ "./src/js/tabs.js");
+/* harmony import */ var _filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filter.js */ "./src/js/filter.js");
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal.js */ "./src/js/modal.js");
+/* harmony import */ var _slider_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./slider.js */ "./src/js/slider.js");
+/* harmony import */ var _search_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./search.js */ "./src/js/search.js");
+
+
+
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, 1000);
+  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
+  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
+  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
+  (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
+  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
+  (0,_search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput)();
 });
 })();
 

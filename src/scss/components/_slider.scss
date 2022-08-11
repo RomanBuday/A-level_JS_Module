@@ -1,0 +1,35 @@
+.offer {
+  &-slider {
+    &_counter {
+      position: relative;
+    }
+    &_prev {
+      background-color:inherit;
+      width: 100px;
+      height: 500px;
+      cursor: pointer;
+      position: absolute;
+      &:hover {
+        background-color: var(--light-color);
+        opacity: .2;
+      }
+    }
+    &_next {
+      background-color:inherit;
+      width: 100px;
+      height: 500px;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: calc(100% - 100px);
+      &:hover {
+        background-color: var(--light-color);
+        opacity: .2;
+      }
+    }
+  }
+}
+
+.title-modify {
+  color: var(--dark-color);
+}
