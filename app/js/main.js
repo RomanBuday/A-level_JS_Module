@@ -1908,11 +1908,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getTabs": () => (/* binding */ getTabs),
 /* harmony export */   "toFavorite": () => (/* binding */ toFavorite)
 /* harmony export */ });
-function getTabs(url, fn) {
+function getTabs(url) {
   let data = url;
   data.forEach(el => {
     generateTabs(el.imgUrl, el.name, el.orderInfo.inStock, el.price, el.orderInfo.reviews, el.orderInfo.orders, el.id);
-  }); // fn();
+  });
 }
 function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
   return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\" data-id=\"").concat(id, "\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn ").concat(inStockCheck(inStock), "\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
