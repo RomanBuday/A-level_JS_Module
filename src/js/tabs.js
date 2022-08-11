@@ -1,23 +1,24 @@
 export function getTabs(url, fn) {
   let data = url;
-  data.forEach((el, index) => {
+  data.forEach((el  => {
     generateTabs(
-      data[index].imgUrl,
-      data[index].name,
-      data[index].orderInfo.inStock,
-      data[index].price,
-      data[index].orderInfo.reviews,
-      data[index].orderInfo.orders);
-  });
+      el.imgUrl,
+      el.name,
+      el.orderInfo.inStock,
+      el.price,
+      el.orderInfo.reviews,
+      el.orderInfo.orders,
+      el.id);
+  }));
   // fn();
 }
 
-export function createTab(imgUrl, name, inStock, price, reviews, orders) {
+export function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
   return `
-    <div class="goods-item">
+    <div data-modal class="goods-item">
       <div class="top-item">
         <img class="top-item_like double" loading="lazy" src="img/svg/like_empty.svg" alt="like icon">
-        <img class="top-item_img" loading="lazy" src="./img/${imgUrl}" alt="item image">
+        <img class="top-item_img" loading="lazy" src="./img/${imgUrl}" alt="item image" data-id="${id}">
         <h2 class="top-item_title title title_fz24">${name}</h2>
         <div class="top-item_status">
           <img class="status-img" src=${inStockSwitcher(inStock)} loading="lazy" alt="in stock icon">
@@ -27,7 +28,7 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
           <span class ="price-text">Price:</span>
           <span class="price-sum">${price} $</span>
         </div>
-        <button class="btn top-item_btn">Add to cart</button>
+        <button class="btn top-item_btn ${inStockCheck(inStock)}">Add to cart</button>
       </div>
       <div class="bottom-item">
         <img class="bottom-item_filledlike" loading="lazy" src="img/svg/like_filled_red.svg" alt="icon like filled">
@@ -42,9 +43,9 @@ export function createTab(imgUrl, name, inStock, price, reviews, orders) {
     </div>`;
 }
 
-export function generateTabs(imgUrl, name, inStock, price, reviews, orders) {
+export function generateTabs(imgUrl, name, inStock, price, reviews, orders, id) {
   const store = document.querySelector('.goods-store');
-  store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders));
+  store.insertAdjacentHTML('beforeend', createTab(imgUrl, name, inStock, price, reviews, orders, id));
 }
 
 export function toFavorite() {
@@ -68,5 +69,11 @@ function inStockSwitcher(inStock) {
     return "img/svg/check.svg";
   } else {
     return "img/svg/check_zero.svg";
+  }
+}
+
+function inStockCheck(inStock) {
+  if(inStock == 0) {
+    return "btn-unset";
   }
 }
