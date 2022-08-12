@@ -12,6 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "accordionFilter": () => (/* binding */ accordionFilter),
 /* harmony export */   "onFilterChange": () => (/* binding */ onFilterChange),
+/* harmony export */   "priceRange": () => (/* binding */ priceRange),
 /* harmony export */   "showFilter": () => (/* binding */ showFilter)
 /* harmony export */ });
 /* harmony import */ var _items_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./items.js */ "./src/js/items.js");
@@ -126,22 +127,21 @@ const filterFunctions = {
   }
 };
 function onFilterChange() {
-  const currentFilteresSelected = getAllFiltersSelected();
-  console.log('-- filteres selected', currentFilteresSelected);
+  const currentFiltersSelected = getAllFiltersSelected();
   const minSelected = document.querySelector(".filter-content > .content-price input[data-price=\"minPrice\"]").value;
   const maxSelected = document.querySelector(".filter-content > .content-price input[data-price=\"maxPrice\"]").value;
   const domItems = document.querySelectorAll('.goods-item');
   domItems.forEach(domItem => {
     const id = domItem.querySelector('.top-item_img').getAttribute('data-id');
-    const item = getItemById(id);
+    const item = (0,_items_js__WEBPACK_IMPORTED_MODULE_0__.getItemById)(id);
 
     if (!item) {
       console.error("!!missing item ".concat(id));
     }
 
     domItem.style.display = '';
-    Object.keys(currentFilteresSelected).forEach(filterName => {
-      const filtersValue = currentFilteresSelected[filterName];
+    Object.keys(currentFiltersSelected).forEach(filterName => {
+      const filtersValue = currentFiltersSelected[filterName];
 
       if (filtersValue.length > 0) {
         const filterCallback = filterFunctions[filterName];
@@ -160,17 +160,21 @@ function onFilterChange() {
 }
 
 function onPriceFilterChange(e) {
-  // const min = document.querySelector(`.filter-content > .content-price input[data-price="minPrice"]`);
-  // const max = document.querySelector(`.filter-content > .content-price input[data-price="maxPrice"]`);
-  // if (!min.value || Number(min.value) < minPrice) {
-  //   min.value = minPrice;
-  // }
-  // if (!max.value || Number(max.value) > maxPrice) {
-  //   max.value = maxPrice;
-  // }
-  // if (min.value > max.value) {
-  //   max.value = min.value;
-  // }
+  const min = document.querySelector(".filter-content > .content-price input[data-price=\"minPrice\"]");
+  const max = document.querySelector(".filter-content > .content-price input[data-price=\"maxPrice\"]");
+
+  if (!min.value || Number(min.value) < _items_js__WEBPACK_IMPORTED_MODULE_0__.minPrice) {
+    min.value = _items_js__WEBPACK_IMPORTED_MODULE_0__.minPrice;
+  }
+
+  if (!max.value || Number(max.value) > _items_js__WEBPACK_IMPORTED_MODULE_0__.maxPrice) {
+    max.value = _items_js__WEBPACK_IMPORTED_MODULE_0__.maxPrice;
+  }
+
+  if (min.value > max.value) {
+    max.value = min.value;
+  }
+
   onFilterChange(e);
 }
 
@@ -184,7 +188,11 @@ function onPriceFilterChange(e) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "items": () => (/* binding */ items)
+/* harmony export */   "filterItems": () => (/* binding */ filterItems),
+/* harmony export */   "getItemById": () => (/* binding */ getItemById),
+/* harmony export */   "items": () => (/* binding */ items),
+/* harmony export */   "maxPrice": () => (/* binding */ maxPrice),
+/* harmony export */   "minPrice": () => (/* binding */ minPrice)
 /* harmony export */ });
 const items = [{
   id: 1,
@@ -1833,6 +1841,21 @@ const items = [{
 
   }
 }];
+const allPrices = items.map(_ref => {
+  let {
+    price
+  } = _ref;
+  return price;
+});
+const minPrice = Math.min(...allPrices);
+const maxPrice = Math.max(...allPrices);
+function getItemById(id) {
+  return items.find(el => String(el.id) == id);
+}
+function filterItems(filterCallback) {
+  const filteredItems = items.filter(filterCallback);
+  return filteredItems;
+}
 
 /***/ }),
 
@@ -2154,10 +2177,10 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, _filter_js__WEBPACK_IMPORTED_MODULE_2__.priceFilter, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, _filter_js__WEBPACK_IMPORTED_MODULE_2__.priceRange, 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
-  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.priceFilter)();
+  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.priceRange)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
   (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);

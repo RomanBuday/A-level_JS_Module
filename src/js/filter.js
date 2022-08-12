@@ -1,4 +1,4 @@
-import {items} from "./items.js";
+import {maxPrice, minPrice, getItemById} from "./items.js";
 
 export function accordionFilter() {
   const accordionBtns = document.querySelectorAll(".filter-title");
@@ -48,7 +48,7 @@ export function showFilter() {
 
 //-----------------------------------------------
 
-function priceRange() {
+export function priceRange() {
   let maxPrice = 0;
   let minPrice = 0;
 
@@ -87,7 +87,6 @@ function getAllFiltersSelected() {
   return result;
 }
 
-
 const filterFunctions = {
   color: (filtersValue, item) => {
     for (const filter of filtersValue) {
@@ -99,12 +98,15 @@ const filterFunctions = {
     }
     return false;
   },
+
   storage: (filtersValue, item) => {
     return item.storage && filtersValue.includes(String(item.storage));
   },
+
   os: (filtersValue, item) => {
     return item.os && filtersValue.map(x => x.toLowerCase()).includes(item.os.toLowerCase());
   },
+
   display: (filtersValue, item) => {
     if (!item.display) {
       return false;
@@ -120,8 +122,7 @@ const filterFunctions = {
 };
 
 export function onFilterChange() {
-  const currentFilteresSelected = getAllFiltersSelected();
-  console.log('-- filteres selected', currentFilteresSelected);
+  const currentFiltersSelected = getAllFiltersSelected();
 
   const minSelected = document.querySelector(`.filter-content > .content-price input[data-price="minPrice"]`).value;
   const maxSelected = document.querySelector(`.filter-content > .content-price input[data-price="maxPrice"]`).value;
@@ -137,8 +138,8 @@ export function onFilterChange() {
 
     domItem.style.display = '';
 
-    Object.keys(currentFilteresSelected).forEach(filterName => {
-      const filtersValue = currentFilteresSelected[filterName];
+    Object.keys(currentFiltersSelected).forEach(filterName => {
+      const filtersValue = currentFiltersSelected[filterName];
       if (filtersValue.length > 0) {
         const filterCallback = filterFunctions[filterName];
         const showFlag = filterCallback(filtersValue, item);
@@ -148,7 +149,8 @@ export function onFilterChange() {
       }
     });
 
-    if ((minSelected !== '' && item.price < Number(minSelected)) || (maxSelected !== '' && item.price > Number(maxSelected))) {
+    if ((minSelected !== '' && item.price < Number(minSelected)) ||
+       (maxSelected !== '' && item.price > Number(maxSelected))) {
       domItem.style.display = 'none';
     }
 
@@ -156,18 +158,18 @@ export function onFilterChange() {
 }
 
 function onPriceFilterChange(e) {
-  // const min = document.querySelector(`.filter-content > .content-price input[data-price="minPrice"]`);
-  // const max = document.querySelector(`.filter-content > .content-price input[data-price="maxPrice"]`);
-  // if (!min.value || Number(min.value) < minPrice) {
-  //   min.value = minPrice;
-  // }
-  // if (!max.value || Number(max.value) > maxPrice) {
-  //   max.value = maxPrice;
-  // }
+  const min = document.querySelector(`.filter-content > .content-price input[data-price="minPrice"]`);
+  const max = document.querySelector(`.filter-content > .content-price input[data-price="maxPrice"]`);
+  if (!min.value || Number(min.value) < minPrice) {
+    min.value = minPrice;
+  }
+  if (!max.value || Number(max.value) > maxPrice) {
+    max.value = maxPrice;
+  }
 
-  // if (min.value > max.value) {
-  //   max.value = min.value;
-  // }
+  if (min.value > max.value) {
+    max.value = min.value;
+  }
 
   onFilterChange(e);
 }

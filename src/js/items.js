@@ -1456,3 +1456,16 @@ export const items = [
     },
   },
 ];
+
+const allPrices = items.map(({price}) => price);
+export const minPrice = Math.min(...allPrices);
+export const maxPrice = Math.max(...allPrices);
+
+export function getItemById(id) {
+  return items.find(el => String(el.id) == id);
+}
+
+export function filterItems(filterCallback) {
+  const filteredItems = items.filter(filterCallback);
+  return filteredItems;
+}

@@ -338,6 +338,7 @@ a {
   align-items: flex-start;
 }
 .goods-filter {
+  max-width: 326px;
   border: 1px solid var(--container-border-color);
   border-radius: 5px;
   margin-right: 40px;
@@ -401,6 +402,7 @@ a {
   height: 25px;
 }
 .goods-store {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
