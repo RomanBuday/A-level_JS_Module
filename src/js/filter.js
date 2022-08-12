@@ -82,23 +82,28 @@ export function priceRange() {
   document.querySelector(`.price-inner_input[data-price = 'maxPrice']`).placeholder=maxPrice;
 }
 
-function colorFilter() {
-  let items = document.querySelectorAll('.goods-item');
+function getFiltersDataForBlock(contentClassName) {
+  const nodeList = document.querySelectorAll(`.filter-content ${contentClassName} input[type="checkbox"]`);
+  const nodesArray = Array.from(nodeList);
+  const checked = nodesArray.filter(input => input.checked);
+  const values = checked.map(el => el.value);
 
-  // items.forEach(item => {
-    // const color = item.querySelector('.descr-list_item').textContent;
-    // console.log(color);
-    // if (title.toLowerCase().indexOf(filter) !== -1) {
-    //   item.style.display = '';
-    // }
-    // else {
-    //   item.style.display = 'none';
-    // }
-  // });
+  return values;
+}
+
+function getAllFiltersSelected() {
+  const result = {
+    color: getFiltersDataForBlock('.content-color'),
+    storage: getFiltersDataForBlock('.content-memory'),
+    os: getFiltersDataForBlock('.content-os'),
+    display: getFiltersDataForBlock('.content-display'),
+  };
+
+  return result;
 }
 
 export function priceFilter() {
-  colorFilter();
+
   priceRange();
 }
 
