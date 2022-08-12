@@ -104,6 +104,40 @@ function getAllFiltersSelected() {
   return result;
 }
 
+const filterFunctions = {
+  color: (filtersValue, item) => {
+    for (const filter of filtersValue) {
+      for (const itemColor of item.color) {
+        if (itemColor.toLocaleLowerCase().includes(filter.toLowerCase())) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  },
+  storage: (filtersValue, item) => {
+    return item.storage && filtersValue.includes(String(item.storage));
+  },
+  os: (filtersValue, item) => {
+    return item.os && filtersValue.map(x => x.toLowerCase()).includes(item.os.toLowerCase());
+  },
+  display: (filtersValue, item) => {
+    if (!item.display) {
+      return false;
+    }
+
+    for (const displayRange of filtersValue) {
+      const [min, max] = displayRange.split('|');
+
+      if (item.display > min && item.display < max) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+};
 function priceFilter() {
   priceRange();
 }
