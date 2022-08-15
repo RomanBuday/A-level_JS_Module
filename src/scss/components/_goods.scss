@@ -6,7 +6,7 @@
     align-items: flex-start;
   }
   &-filter {
-    // width: 326px;
+    max-width: 326px;
     //display: none;
     border: 1px solid var(--container-border-color);
     border-radius: 5px;
@@ -62,13 +62,12 @@
     }
   }
   &-store {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    //margin-top: 34px;
   }
   &-item {
-    //cursor: pointer;
     border: 1px solid var(--container-border-color);
     border-radius: 10px;
     width: 30%;

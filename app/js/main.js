@@ -11,8 +11,12 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "accordionFilter": () => (/* binding */ accordionFilter),
+/* harmony export */   "onFilterChange": () => (/* binding */ onFilterChange),
+/* harmony export */   "priceRange": () => (/* binding */ priceRange),
 /* harmony export */   "showFilter": () => (/* binding */ showFilter)
 /* harmony export */ });
+/* harmony import */ var _items_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./items.js */ "./src/js/items.js");
+
 function accordionFilter() {
   const accordionBtns = document.querySelectorAll(".filter-title");
   accordionBtns.forEach(accordion => {
@@ -51,6 +55,127 @@ function showFilter() {
       }
     }
   });
+  document.querySelectorAll('.filter-content input[type="checkbox"]').forEach(checkbox => checkbox.addEventListener('change', onFilterChange));
+  document.querySelectorAll('.filter-content > .content-price input').forEach(input => input.addEventListener('input', onPriceFilterChange));
+} //-----------------------------------------------
+
+function priceRange() {
+  let maxPrice = 0;
+  let minPrice = 0;
+  let items = document.querySelectorAll('.goods-item');
+  let arrPrice = [];
+  items.forEach(item => {
+    let priceStr = item.querySelector('.price-sum').textContent;
+    arrPrice.push(parseInt(priceStr.match(/\d+/)));
+    maxPrice = Math.max(...arrPrice);
+    minPrice = Math.min(...arrPrice);
+  });
+  document.querySelector(".price-inner_input[data-price = 'minPrice']").placeholder = minPrice;
+  document.querySelector(".price-inner_input[data-price = 'maxPrice']").placeholder = maxPrice;
+}
+
+function getFiltersDataForBlock(contentClassName) {
+  const nodeList = document.querySelectorAll(".filter-content ".concat(contentClassName, " input[type=\"checkbox\"]"));
+  const nodesArray = Array.from(nodeList);
+  const checked = nodesArray.filter(input => input.checked);
+  const values = checked.map(el => el.value);
+  return values;
+}
+
+function getAllFiltersSelected() {
+  const result = {
+    color: getFiltersDataForBlock('.content-color'),
+    storage: getFiltersDataForBlock('.content-memory'),
+    os: getFiltersDataForBlock('.content-os'),
+    display: getFiltersDataForBlock('.content-display')
+  };
+  return result;
+}
+
+const filterFunctions = {
+  color: (filtersValue, item) => {
+    for (const filter of filtersValue) {
+      for (const itemColor of item.color) {
+        if (itemColor.toLocaleLowerCase().includes(filter.toLowerCase())) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  },
+  storage: (filtersValue, item) => {
+    return item.storage && filtersValue.includes(String(item.storage));
+  },
+  os: (filtersValue, item) => {
+    return item.os && filtersValue.map(x => x.toLowerCase()).includes(item.os.toLowerCase());
+  },
+  display: (filtersValue, item) => {
+    if (!item.display) {
+      return false;
+    }
+
+    for (const displayRange of filtersValue) {
+      const [min, max] = displayRange.split('|');
+
+      if (item.display > min && item.display < max) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+};
+function onFilterChange() {
+  const currentFiltersSelected = getAllFiltersSelected();
+  const minSelected = document.querySelector(".filter-content > .content-price input[data-price=\"minPrice\"]").value;
+  const maxSelected = document.querySelector(".filter-content > .content-price input[data-price=\"maxPrice\"]").value;
+  const domItems = document.querySelectorAll('.goods-item');
+  domItems.forEach(domItem => {
+    const id = domItem.querySelector('.top-item_img').getAttribute('data-id');
+    const item = (0,_items_js__WEBPACK_IMPORTED_MODULE_0__.getItemById)(id);
+
+    if (!item) {
+      console.error("!!missing item ".concat(id));
+    }
+
+    domItem.style.display = '';
+    Object.keys(currentFiltersSelected).forEach(filterName => {
+      const filtersValue = currentFiltersSelected[filterName];
+
+      if (filtersValue.length > 0) {
+        const filterCallback = filterFunctions[filterName];
+        const showFlag = filterCallback(filtersValue, item);
+
+        if (!showFlag) {
+          domItem.style.display = 'none';
+        }
+      }
+    });
+
+    if (minSelected !== '' && item.price < Number(minSelected) || maxSelected !== '' && item.price > Number(maxSelected)) {
+      domItem.style.display = 'none';
+    }
+  });
+}
+
+function onPriceFilterChange(e) {
+  const min = document.querySelector(".filter-content > .content-price input[data-price=\"minPrice\"]");
+  const max = document.querySelector(".filter-content > .content-price input[data-price=\"maxPrice\"]");
+
+  if (!min.value || Number(min.value) < _items_js__WEBPACK_IMPORTED_MODULE_0__.minPrice) {
+    min.value = _items_js__WEBPACK_IMPORTED_MODULE_0__.minPrice;
+  }
+
+  if (!max.value || Number(max.value) > _items_js__WEBPACK_IMPORTED_MODULE_0__.maxPrice) {
+    max.value = _items_js__WEBPACK_IMPORTED_MODULE_0__.maxPrice;
+  }
+
+  if (min.value > max.value) {
+    max.value = min.value;
+  }
+
+  onFilterChange(e);
 }
 
 /***/ }),
@@ -63,7 +188,11 @@ function showFilter() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "items": () => (/* binding */ items)
+/* harmony export */   "filterItems": () => (/* binding */ filterItems),
+/* harmony export */   "getItemById": () => (/* binding */ getItemById),
+/* harmony export */   "items": () => (/* binding */ items),
+/* harmony export */   "maxPrice": () => (/* binding */ maxPrice),
+/* harmony export */   "minPrice": () => (/* binding */ minPrice)
 /* harmony export */ });
 const items = [{
   id: 1,
@@ -1712,6 +1841,21 @@ const items = [{
 
   }
 }];
+const allPrices = items.map(_ref => {
+  let {
+    price
+  } = _ref;
+  return price;
+});
+const minPrice = Math.min(...allPrices);
+const maxPrice = Math.max(...allPrices);
+function getItemById(id) {
+  return items.find(el => String(el.id) == id);
+}
+function filterItems(filterCallback) {
+  const filteredItems = items.filter(filterCallback);
+  return filteredItems;
+}
 
 /***/ }),
 
@@ -1908,11 +2052,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "getTabs": () => (/* binding */ getTabs),
 /* harmony export */   "toFavorite": () => (/* binding */ toFavorite)
 /* harmony export */ });
-function getTabs(url, fn) {
+function getTabs(url) {
   let data = url;
   data.forEach(el => {
     generateTabs(el.imgUrl, el.name, el.orderInfo.inStock, el.price, el.orderInfo.reviews, el.orderInfo.orders, el.id);
-  }); // fn();
+  });
 }
 function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
   return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\" data-id=\"").concat(id, "\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn ").concat(inStockCheck(inStock), "\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
@@ -2025,12 +2169,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ // let tabItems = [...items];
+// let filterState = {
+//   minPrice(),
+//   render(),
+// };
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, _filter_js__WEBPACK_IMPORTED_MODULE_2__.priceRange, 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
+  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.priceRange)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
   (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);

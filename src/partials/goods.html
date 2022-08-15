@@ -5,12 +5,12 @@
         <img src="img/svg/search.svg" alt="search user">
       </div>
       <input class="goods-search_input" type="search" placeholder="Enter device name...">
-      <div class="goods-search_filter btn_search">
+      <button class="goods-search_filter btn_search filter-hide">
         <img class="goods-filter_img" src="img/svg/filter.svg " alt="filter icon">
-      </div>
-      <div class="goods-search_settings btn_search">
+      </button>
+      <button class="goods-search_settings btn_search">
         <img class="goods-settings_img" src="img/svg/settings.svg" alt="settings icon">
-      </div>
+      </button>
     </div>
 
     <section class="goods-wrapper">
@@ -20,13 +20,13 @@
           <div class="filter-content_divider"></div>
           <div class="content-price">
             <div class="price-inner">
-              <label  class="price-inner_label">From
-                <input class="price-inner_input" type="number" placeholder="350">
+              <label class="price-inner_label">From
+                <input class="price-inner_input" data-price ='minPrice' type="number" placeholder="350">
               </label>
             </div>
             <div class="price-inner">
               <label class="price-inner_label">To
-                <input class="price-inner_input" type="number" placeholder="1350">
+                <input class="price-inner_input" data-price ='maxPrice' type="number" placeholder="1350">
               </label>
             </div>
           </div>
@@ -37,28 +37,28 @@
           <div class="filter-content_divider"></div>
           <div class="content-color">
             <div class="color-inner">
-              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Red</label>
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox" value="Red">Red</label>
             </div>
             <div class="color-inner">
-              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Green</label>
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox" value="Green">Green</label>
             </div>
             <div class="color-inner">
-              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Black</label>
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox" value="Black">Black</label>
             </div>
             <div class="color-inner">
-              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">White</label>
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox" value="White">White</label>
             </div>
             <div class="color-inner">
-              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Blue</label>
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox" value="Blue">Blue</label>
             </div>
             <div class="color-inner">
-              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Grey</label>
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox" value="Grey">Grey</label>
             </div>
             <div class="color-inner">
-              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Gold</label>
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox" value="Gold">Gold</label>
             </div>
             <div class="color-inner">
-              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox">Yelow</label>
+              <label class="color-inner_label filter-label"><input type="checkbox" class="color-inner_checkbox filter-checkbox" value="Yellow">Yelow</label>
             </div>
           </div>
         </div>
@@ -68,28 +68,28 @@
           <div class="filter-content_divider"></div>
           <div class="content-memory">
             <div class="memory-inner">
-              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">32 Gb</label>
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox" value="32">32 Gb</label>
             </div>
             <div class="memory-inner">
-              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">512 Gb</label>
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox" value="512">512 Gb</label>
             </div>
             <div class="memory-inner">
-              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">64 Gb</label>
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox" value="64">64 Gb</label>
             </div>
             <div class="memory-inner">
-              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">1 Tb</label>
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox" value="1">1 Tb</label>
             </div>
             <div class="memory-inner">
-              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">128 Gb</label>
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox" value="128">128 Gb</label>
             </div>
             <div class="memory-inner">
-              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">2 Tb</label>
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox" value="2">2 Tb</label>
             </div>
             <div class="memory-inner">
-              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">256 Gb</label>
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox" value="256">256 Gb</label>
             </div>
             <div class="memory-inner">
-              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox">4 Tb</label>
+              <label class="memory-inner_label filter-label"><input type="checkbox" class="memory-inner_checkbox filter-checkbox" value="4">4 Tb</label>
             </div>
           </div>
         </div>
@@ -99,16 +99,16 @@
           <div class="filter-content_divider"></div>
           <div class="content-os">
             <div class="os-inner">
-              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox">IOS</label>
+              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox" value="IOS">IOS</label>
             </div>
             <div class="os-inner">
-              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox">Mac OS</label>
+              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox" value="MacOS">Mac OS</label>
             </div>
             <div class="os-inner">
-              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox">tvOS</label>
+              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox" value="tvOS">tvOS</label>
             </div>
             <div class="os-inner">
-              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox">Watch OS</label>
+              <label class="os-inner_label filter-label"><input type="checkbox" class="os-inner_checkbox filter-checkbox" value="Watch OS">Watch OS</label>
             </div>
           </div>
         </div>
@@ -118,19 +118,19 @@
           <div class="filter-content_divider"></div>
           <div class="content-display">
             <div class="display-inner">
-              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">2 - 5 inch</label>
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox" value="2|5">2 - 5 inch</label>
             </div>
             <div class="display-inner">
-              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">5 - 7 inch</label>
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox" value="5|7">5 - 7 inch</label>
             </div>
             <div class="display-inner">
-              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">7 - 12 inch</label>
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox" value="7|12">7 - 12 inch</label>
             </div>
             <div class="display-inner">
-              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">12 - 16 inch</label>
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox" value="12|16">12 - 16 inch</label>
             </div>
             <div class="display-inner">
-              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox">+ 16 inch</label>
+              <label class="display-inner_label filter-label"><input type="checkbox" class="display-inner_checkbox filter-checkbox" value="16|999">+ 16 inch</label>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-export function getTabs(url, fn) {
+export function getTabs(url) {
   let data = url;
   data.forEach((el  => {
     generateTabs(
@@ -10,7 +10,6 @@ export function getTabs(url, fn) {
       el.orderInfo.orders,
       el.id);
   }));
-  // fn();
 }
 
 export function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
