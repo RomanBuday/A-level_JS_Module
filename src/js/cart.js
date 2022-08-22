@@ -2,12 +2,14 @@ const store = document.querySelector('.cart');
 const item = document.querySelector('.cart-item');
 const arr = [];
 
-export function showCart() {
+export function clickCart() {
   const cartBtn = document.querySelector('.header-top_cart');
-  cartBtn.addEventListener('click', () => {
+  cartBtn.addEventListener('click', (e) => {
     store.classList.add('show');
     store.classList.remove('hide');
 
+    const id = e.target.getAttribute('data-id');
+    const itemToShow = document.querySelectorAll(`.modal-content[data-id="${id}"]`)[0];
 
     document.addEventListener('keydown', function(e) {
       if(e.code === 'Escape' ){
@@ -27,8 +29,8 @@ export function selectId() {
   });
 }
 
-export function createCart(id, imgUrl, name, price) {
-  const addHtml = `
+function showCart(id, imgUrl, name, price) {
+  return `
     <div class="item-img data-id="${id}">
       <img src="/img/${imgUrl}" alt="item img">
     </div>
@@ -45,7 +47,20 @@ export function createCart(id, imgUrl, name, price) {
       <button class="item-counter_remove">X</button>
     </div>
   `;
-  item.insertAdjacentHTML('beforeend', addHtml);
+}
+
+function generateCart(id, imgUrl, name, price) {
+  item.insertAdjacentHTML('beforeend', showCart(id, imgUrl, name, price));
+}
+
+export function getCart(items) {
+  items.forEach((el => {
+      generateCart(
+        el.id,
+        el.imgUrl,
+        el.name,
+        el.price,);
+  }));
 }
 
 function addStorage(id) {
@@ -56,7 +71,7 @@ function addStorage(id) {
 
 function getStorageData() {
   if(localStorage.getItem('ID')) {
-      document.querySelector('.top-item_title').textContent = localStorage.getItem('ID');
+      // document.querySelector('.top-item_title').textContent = localStorage.getItem('ID');
   } else {
       //document.querySelector('.top-item_title').textContent = 0;
   }

@@ -10,18 +10,20 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "createCart": () => (/* binding */ createCart),
-/* harmony export */   "selectId": () => (/* binding */ selectId),
-/* harmony export */   "showCart": () => (/* binding */ showCart)
+/* harmony export */   "clickCart": () => (/* binding */ clickCart),
+/* harmony export */   "getCart": () => (/* binding */ getCart),
+/* harmony export */   "selectId": () => (/* binding */ selectId)
 /* harmony export */ });
 const store = document.querySelector('.cart');
 const item = document.querySelector('.cart-item');
 const arr = [];
-function showCart() {
+function clickCart() {
   const cartBtn = document.querySelector('.header-top_cart');
-  cartBtn.addEventListener('click', () => {
+  cartBtn.addEventListener('click', e => {
     store.classList.add('show');
     store.classList.remove('hide');
+    const id = e.target.getAttribute('data-id');
+    const itemToShow = document.querySelectorAll(".modal-content[data-id=\"".concat(id, "\"]"))[0];
     document.addEventListener('keydown', function (e) {
       if (e.code === 'Escape') {
         store.classList.add('hide');
@@ -38,9 +40,19 @@ function selectId() {
     });
   });
 }
-function createCart(id, imgUrl, name, price) {
-  const addHtml = "\n    <div class=\"item-img data-id=\"".concat(id, "\">\n      <img src=\"/img/").concat(imgUrl, "\" alt=\"item img\">\n    </div>\n    <div class=\"item-descr\">\n      <h3 class=\"descr-title title_fz12\">").concat(name, "</h3>\n      <div class=\"descr-price\">\n        <span class=\"descr-price_sum\">").concat(price, "</span>\n      </div>\n    </div>\n    <div class=\"item-counter\">\n      <button class=\"item-counter_minus\">V</button>\n      <span class=\"item-counter_quantity\">1</span>\n      <button class=\"item-counter_plus\">V</button>\n      <button class=\"item-counter_remove\">X</button>\n    </div>\n  ");
-  item.insertAdjacentHTML('beforeend', addHtml);
+
+function showCart(id, imgUrl, name, price) {
+  return "\n    <div class=\"item-img data-id=\"".concat(id, "\">\n      <img src=\"/img/").concat(imgUrl, "\" alt=\"item img\">\n    </div>\n    <div class=\"item-descr\">\n      <h3 class=\"descr-title title_fz12\">").concat(name, "</h3>\n      <div class=\"descr-price\">\n        <span class=\"descr-price_sum\">").concat(price, "</span>\n      </div>\n    </div>\n    <div class=\"item-counter\">\n      <button class=\"item-counter_minus\">V</button>\n      <span class=\"item-counter_quantity\">1</span>\n      <button class=\"item-counter_plus\">V</button>\n      <button class=\"item-counter_remove\">X</button>\n    </div>\n  ");
+}
+
+function generateCart(id, imgUrl, name, price) {
+  item.insertAdjacentHTML('beforeend', showCart(id, imgUrl, name, price));
+}
+
+function getCart(items) {
+  items.forEach(el => {
+    generateCart(el.id, el.imgUrl, el.name, el.price);
+  });
 }
 
 function addStorage(id) {
@@ -50,8 +62,7 @@ function addStorage(id) {
 }
 
 function getStorageData() {
-  if (localStorage.getItem('ID')) {
-    document.querySelector('.top-item_title').textContent = localStorage.getItem('ID');
+  if (localStorage.getItem('ID')) {// document.querySelector('.top-item_title').textContent = localStorage.getItem('ID');
   } else {//document.querySelector('.top-item_title').textContent = 0;
   } //clearStorage();
 
@@ -2095,14 +2106,14 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, _cart_js__WEBPACK_IMPORTED_MODULE_6__.showCart, _cart_js__WEBPACK_IMPORTED_MODULE_6__.selectId, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, _cart_js__WEBPACK_IMPORTED_MODULE_6__.getCart, _cart_js__WEBPACK_IMPORTED_MODULE_6__.clickCart, _cart_js__WEBPACK_IMPORTED_MODULE_6__.selectId, 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
   (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
-  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _cart_js__WEBPACK_IMPORTED_MODULE_6__.selectId);
+  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
   (0,_search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput)();
-  (0,_cart_js__WEBPACK_IMPORTED_MODULE_6__.showCart)();
+  (0,_cart_js__WEBPACK_IMPORTED_MODULE_6__.getCart)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
 });
 })();
 
