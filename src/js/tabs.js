@@ -10,7 +10,7 @@ export function getTabs(url, fn) {
       el.orderInfo.orders,
       el.id);
   }));
-  // fn();
+  fn();
 }
 
 export function createTab(imgUrl, name, inStock, price, reviews, orders, id) {

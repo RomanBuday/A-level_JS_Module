@@ -2,6 +2,70 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/js/cart.js":
+/*!************************!*\
+  !*** ./src/js/cart.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createCart": () => (/* binding */ createCart),
+/* harmony export */   "selectId": () => (/* binding */ selectId),
+/* harmony export */   "showCart": () => (/* binding */ showCart)
+/* harmony export */ });
+const store = document.querySelector('.cart');
+const item = document.querySelector('.cart-item');
+const arr = [];
+function showCart() {
+  const cartBtn = document.querySelector('.header-top_cart');
+  cartBtn.addEventListener('click', () => {
+    store.classList.add('show');
+    store.classList.remove('hide');
+    document.addEventListener('keydown', function (e) {
+      if (e.code === 'Escape') {
+        store.classList.add('hide');
+        store.classList.remove('show');
+      }
+    });
+  });
+}
+function selectId() {
+  document.querySelectorAll('.top-item_btn').forEach(el => {
+    el.addEventListener('click', () => {
+      console.log(el.parentElement.id);
+      addStorage(el.parentElement.id);
+    });
+  });
+}
+function createCart(id, imgUrl, name, price) {
+  const addHtml = "\n    <div class=\"item-img data-id=\"".concat(id, "\">\n      <img src=\"/img/").concat(imgUrl, "\" alt=\"item img\">\n    </div>\n    <div class=\"item-descr\">\n      <h3 class=\"descr-title title_fz12\">").concat(name, "</h3>\n      <div class=\"descr-price\">\n        <span class=\"descr-price_sum\">").concat(price, "</span>\n      </div>\n    </div>\n    <div class=\"item-counter\">\n      <button class=\"item-counter_minus\">V</button>\n      <span class=\"item-counter_quantity\">1</span>\n      <button class=\"item-counter_plus\">V</button>\n      <button class=\"item-counter_remove\">X</button>\n    </div>\n  ");
+  item.insertAdjacentHTML('beforeend', addHtml);
+}
+
+function addStorage(id) {
+  arr.push(id);
+  localStorage.setItem('ID', arr);
+  getStorageData();
+}
+
+function getStorageData() {
+  if (localStorage.getItem('ID')) {
+    document.querySelector('.top-item_title').textContent = localStorage.getItem('ID');
+  } else {//document.querySelector('.top-item_title').textContent = 0;
+  } //clearStorage();
+
+}
+
+getStorageData(); // function clearStorage() {
+//   document.querySelector('.item-counter_remove').addEventListener('click', () => {
+//       localStorage.removeItem('ID');
+//       getStorageData();
+//   });
+// }
+
+/***/ }),
+
 /***/ "./src/js/filter.js":
 /*!**************************!*\
   !*** ./src/js/filter.js ***!
@@ -1912,7 +1976,8 @@ function getTabs(url, fn) {
   let data = url;
   data.forEach(el => {
     generateTabs(el.imgUrl, el.name, el.orderInfo.inStock, el.price, el.orderInfo.reviews, el.orderInfo.orders, el.id);
-  }); // fn();
+  });
+  fn();
 }
 function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
   return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\" data-id=\"").concat(id, "\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn ").concat(inStockCheck(inStock), "\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
@@ -2020,6 +2085,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modal.js */ "./src/js/modal.js");
 /* harmony import */ var _slider_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./slider.js */ "./src/js/slider.js");
 /* harmony import */ var _search_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./search.js */ "./src/js/search.js");
+/* harmony import */ var _cart_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./cart.js */ "./src/js/cart.js");
+
 
 
 
@@ -2028,13 +2095,14 @@ __webpack_require__.r(__webpack_exports__);
 
 document.addEventListener('DOMContentLoaded', function () {
   (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, 1000);
+  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, _cart_js__WEBPACK_IMPORTED_MODULE_6__.showCart, _cart_js__WEBPACK_IMPORTED_MODULE_6__.selectId, 1000);
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
   (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
-  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
+  (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _cart_js__WEBPACK_IMPORTED_MODULE_6__.selectId);
   (0,_search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput)();
+  (0,_cart_js__WEBPACK_IMPORTED_MODULE_6__.showCart)();
 });
 })();
 
