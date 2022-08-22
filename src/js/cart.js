@@ -24,7 +24,7 @@ export function selectId() {
   document.querySelectorAll('.top-item_btn').forEach(el => {
       el.addEventListener('click', () => {
       console.log(el.parentElement.id);
-      addStorage(el.parentElement.id);
+      //addStorage(el.parentElement.id);
       });
   });
 }
@@ -63,22 +63,22 @@ export function getCart(items) {
   }));
 }
 
-function addStorage(id) {
-  arr.push(id);
-  localStorage.setItem('ID', arr);
-  getStorageData();
-}
+// function addStorage(id) {
+//   arr.push(id);
+//   localStorage.setItem('ID', arr);
+//   getStorageData();
+// }
 
-function getStorageData() {
-  if(localStorage.getItem('ID')) {
+//function getStorageData() {
+ // if(localStorage.getItem('ID')) {
       // document.querySelector('.top-item_title').textContent = localStorage.getItem('ID');
-  } else {
+ // } else {
       //document.querySelector('.top-item_title').textContent = 0;
-  }
+ // }
   //clearStorage();
-}
+//}
 
-getStorageData();
+// getStorageData();
 
 // function clearStorage() {
 //   document.querySelector('.item-counter_remove').addEventListener('click', () => {
