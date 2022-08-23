@@ -153,16 +153,20 @@ export function selectId() {
   });
 }
 
-function renderTotal(amount, price) {
+function renderTotal(amountTotal, priceTotal) {
   return `
-  <span class="bottom-total_left">Total amount: <span>${amount++} pts.</span></span>
-  <span class="bottom-total_right">Total price: <span>${price++} $</span></span>
+  <span class="bottom-total_left">Total amount: <span>${getAmountTotal(amountTotal)} pts.</span></span>
+  <span class="bottom-total_right">Total price: <span>${priceTotal} $</span></span>
   `;
 }
 
-function generateCartTotal(amount, price) {
+function generateCartTotal(amountTotal, priceTotal) {
   const totalCount = document.querySelector('.bottom-total');
-  totalCount.insertAdjacentHTML('beforeend', renderTotal(amount, price));
+  totalCount.insertAdjacentHTML('beforeend', renderTotal(amountTotal, priceTotal));
 }
 
 generateCartTotal();
+
+function getAmountTotal(amountTotal) {
+
+}

@@ -156,16 +156,18 @@ function selectId() {
   });
 }
 
-function renderTotal(amount, price) {
-  return "\n  <span class=\"bottom-total_left\">Total amount: <span>".concat(amount++, " pts.</span></span>\n  <span class=\"bottom-total_right\">Total price: <span>").concat(price++, " $</span></span>\n  ");
+function renderTotal(amountTotal, priceTotal) {
+  return "\n  <span class=\"bottom-total_left\">Total amount: <span>".concat(getAmountTotal(amountTotal), " pts.</span></span>\n  <span class=\"bottom-total_right\">Total price: <span>").concat(priceTotal, " $</span></span>\n  ");
 }
 
-function generateCartTotal(amount, price) {
+function generateCartTotal(amountTotal, priceTotal) {
   const totalCount = document.querySelector('.bottom-total');
-  totalCount.insertAdjacentHTML('beforeend', renderTotal(amount, price));
+  totalCount.insertAdjacentHTML('beforeend', renderTotal(amountTotal, priceTotal));
 }
 
 generateCartTotal();
+
+function getAmountTotal(amountTotal) {}
 
 /***/ }),
 
