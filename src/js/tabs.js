@@ -16,7 +16,7 @@ export function getTabs(url, fn) {
 export function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
   return `
     <div data-modal class="goods-item">
-      <div class="top-item">
+      <div class="top-item" data-id="${id}">
         <img class="top-item_like double" loading="lazy" src="img/svg/like_empty.svg" alt="like icon">
         <img class="top-item_img" loading="lazy" src="./img/${imgUrl}" alt="item image" data-id="${id}">
         <h2 class="top-item_title title title_fz24">${name}</h2>

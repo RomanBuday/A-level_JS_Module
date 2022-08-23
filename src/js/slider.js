@@ -8,6 +8,7 @@ const slides = document.querySelectorAll(".offer_slide"),
 export let slideIndex = 1;
 
 export function showSlides(n) {
+
   if (n > slides.length) {
     slideIndex = 1;
   }

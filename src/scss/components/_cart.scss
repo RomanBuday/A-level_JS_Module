@@ -18,15 +18,19 @@
   &-top {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: centers;
   }
   &-item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     border-bottom: .5px solid var(--btn-color-focus);
     border-top: .5px solid var(--btn-color-focus);
     width: calc(100% + 30px);
+    &_inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
   &-bottom {
     width: calc(100% + 30px);
@@ -47,7 +51,7 @@
 }
 .item {
   &-img {
-    margin-left: 26px;
+    margin: 10px 0 10px 26px;
     width: 100px;
     height: 100px;
   }

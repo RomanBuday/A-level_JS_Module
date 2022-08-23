@@ -10,20 +10,134 @@
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addItemToCart": () => (/* binding */ addItemToCart),
 /* harmony export */   "clickCart": () => (/* binding */ clickCart),
-/* harmony export */   "getCart": () => (/* binding */ getCart),
 /* harmony export */   "selectId": () => (/* binding */ selectId)
 /* harmony export */ });
+/* harmony import */ var _items_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./items.js */ "./src/js/items.js");
+
 const store = document.querySelector('.cart');
-const item = document.querySelector('.cart-item');
-const arr = [];
+const uiCart = document.querySelector('.cart-item');
+
+function renderItem(id, imgUrl, name, price, count) {
+  return "\n    <div class=\"cart-item_inner\">\n      <div class=\"item-img data-id=\"".concat(id, "\">\n        <img src=\"/img/").concat(imgUrl, "\" alt=\"item img\">\n      </div>\n      <div class=\"item-descr\">\n        <h3 class=\"descr-title title_fz12\">").concat(name, "</h3>\n        <div class=\"descr-price\">\n          <span class=\"descr-price_sum\">").concat(price, " $</span>\n        </div>\n      </div>\n      <div class=\"item-counter\" data-id=\"").concat(id, "\">\n        <button class=\"item-counter_minus\">V</button>\n        <span class=\"item-counter_quantity\">").concat(count, "</span>\n        <button class=\"item-counter_plus\">V</button>\n        <button class=\"item-counter_remove\">X</button>\n      </div>\n    </div>\n  ");
+}
+
+function generateCartItem(item, count) {
+  const {
+    id,
+    imgUrl,
+    name,
+    price
+  } = item;
+  uiCart.insertAdjacentHTML('beforeend', renderItem(id, imgUrl, name, price, count));
+}
+
+function addItemToCart(itemId) {
+  var _cart$items, _cart$items2;
+
+  const cart = getFromLocalStorage();
+  const {
+    count
+  } = (cart === null || cart === void 0 ? void 0 : (_cart$items = cart.items) === null || _cart$items === void 0 ? void 0 : _cart$items.find(i => i.id == itemId)) || {
+    count: 0
+  };
+  const otherItems = (cart === null || cart === void 0 ? void 0 : (_cart$items2 = cart.items) === null || _cart$items2 === void 0 ? void 0 : _cart$items2.filter(i => i.id !== itemId)) || [];
+  const newCart = { ...cart,
+    items: [...otherItems, {
+      id: itemId,
+      count: count + 1
+    }]
+  };
+  saveToLocalStorage(newCart);
+  showCart();
+}
+
+function decItemFromCart(itemId) {
+  const cart = getFromLocalStorage();
+  const {
+    count
+  } = cart.items.find(i => i.id == itemId) || {
+    count: 0
+  };
+  const otherItems = cart.items.filter(i => i.id !== itemId);
+  const newCart = { ...cart,
+    items: [...otherItems, {
+      id: itemId,
+      count: count - 1
+    }].filter(i => i.count > 0)
+  };
+  saveToLocalStorage(newCart);
+  showCart();
+}
+
+function removeItemFromCart(itemId) {
+  const cart = getFromLocalStorage();
+  const otherItems = cart.items.filter(i => i.id !== itemId);
+  const newCart = { ...cart,
+    items: otherItems
+  };
+  saveToLocalStorage(newCart);
+  showCart();
+}
+
+function getFromLocalStorage() {
+  const str = localStorage.getItem('cart');
+  const result = JSON.parse(str);
+  console.log('getting cart from localStorage', result);
+  return result;
+}
+
+function saveToLocalStorage(data) {
+  const storageData = JSON.stringify(data);
+  return localStorage.setItem('cart', storageData);
+}
+
+function renderCart() {
+  var _cart$items3;
+
+  const cart = getFromLocalStorage();
+  uiCart.innerHTML = ''; // if (cart && cart.items && cart.items.length > 0) {
+
+  if (cart !== null && cart !== void 0 && (_cart$items3 = cart.items) !== null && _cart$items3 !== void 0 && _cart$items3.length) {
+    cart.items.forEach(el => {
+      const item = (0,_items_js__WEBPACK_IMPORTED_MODULE_0__.getItemById)(el.id);
+      generateCartItem(item, el.count);
+    });
+  }
+
+  const removeButtons = document.querySelectorAll('.item-counter_remove');
+  removeButtons.forEach(button => button.addEventListener('click', e => {
+    const idToDelete = e.target.parentElement.getAttribute('data-id');
+    removeItemFromCart(Number(idToDelete));
+  }));
+  const minusButtons = document.querySelectorAll('.item-counter_minus');
+  minusButtons.forEach(button => button.addEventListener('click', e => {
+    const idToDelete = e.target.parentElement.getAttribute('data-id');
+    decItemFromCart(Number(idToDelete));
+  }));
+  const plusButtons = document.querySelectorAll('.item-counter_plus');
+  plusButtons.forEach(button => button.addEventListener('click', e => {
+    const idToDelete = e.target.parentElement.getAttribute('data-id');
+    addItemToCart(Number(idToDelete));
+  }));
+}
+
+function showCart() {
+  renderCart();
+  store.classList.add('show');
+  store.classList.remove('hide');
+}
+
 function clickCart() {
+  const sliderBtn = document.querySelectorAll(".header-bottom_btn");
+  sliderBtn.forEach(b => b.addEventListener('click', e => {
+    const id = e.target.getAttribute('data-id');
+    addItemToCart(Number(id));
+  }));
   const cartBtn = document.querySelector('.header-top_cart');
   cartBtn.addEventListener('click', e => {
-    store.classList.add('show');
-    store.classList.remove('hide');
-    const id = e.target.getAttribute('data-id');
-    const itemToShow = document.querySelectorAll(".modal-content[data-id=\"".concat(id, "\"]"))[0];
+    showCart();
     document.addEventListener('keydown', function (e) {
       if (e.code === 'Escape') {
         store.classList.add('hide');
@@ -35,43 +149,23 @@ function clickCart() {
 function selectId() {
   document.querySelectorAll('.top-item_btn').forEach(el => {
     el.addEventListener('click', () => {
-      console.log(el.parentElement.id); //addStorage(el.parentElement.id);
+      console.log(el.parentElement.id);
+      const id = el.parentElement.getAttribute('data-id');
+      addItemToCart(Number(id));
     });
   });
 }
 
-function showCart(id, imgUrl, name, price) {
-  return "\n    <div class=\"item-img data-id=\"".concat(id, "\">\n      <img src=\"/img/").concat(imgUrl, "\" alt=\"item img\">\n    </div>\n    <div class=\"item-descr\">\n      <h3 class=\"descr-title title_fz12\">").concat(name, "</h3>\n      <div class=\"descr-price\">\n        <span class=\"descr-price_sum\">").concat(price, "</span>\n      </div>\n    </div>\n    <div class=\"item-counter\">\n      <button class=\"item-counter_minus\">V</button>\n      <span class=\"item-counter_quantity\">1</span>\n      <button class=\"item-counter_plus\">V</button>\n      <button class=\"item-counter_remove\">X</button>\n    </div>\n  ");
+function renderTotal(amount, price) {
+  return "\n  <span class=\"bottom-total_left\">Total amount: <span>".concat(amount++, " pts.</span></span>\n  <span class=\"bottom-total_right\">Total price: <span>").concat(price++, " $</span></span>\n  ");
 }
 
-function generateCart(id, imgUrl, name, price) {
-  item.insertAdjacentHTML('beforeend', showCart(id, imgUrl, name, price));
+function generateCartTotal(amount, price) {
+  const totalCount = document.querySelector('.bottom-total');
+  totalCount.insertAdjacentHTML('beforeend', renderTotal(amount, price));
 }
 
-function getCart(items) {
-  items.forEach(el => {
-    generateCart(el.id, el.imgUrl, el.name, el.price);
-  });
-} // function addStorage(id) {
-//   arr.push(id);
-//   localStorage.setItem('ID', arr);
-//   getStorageData();
-// }
-//function getStorageData() {
-// if(localStorage.getItem('ID')) {
-// document.querySelector('.top-item_title').textContent = localStorage.getItem('ID');
-// } else {
-//document.querySelector('.top-item_title').textContent = 0;
-// }
-//clearStorage();
-//}
-// getStorageData();
-// function clearStorage() {
-//   document.querySelector('.item-counter_remove').addEventListener('click', () => {
-//       localStorage.removeItem('ID');
-//       getStorageData();
-//   });
-// }
+generateCartTotal();
 
 /***/ }),
 
@@ -136,6 +230,7 @@ function showFilter() {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getItemById": () => (/* binding */ getItemById),
 /* harmony export */   "items": () => (/* binding */ items)
 /* harmony export */ });
 const items = [{
@@ -1785,6 +1880,14 @@ const items = [{
 
   }
 }];
+function getItemById(itemId) {
+  return items.find(_ref => {
+    let {
+      id
+    } = _ref;
+    return id == itemId;
+  });
+}
 
 /***/ }),
 
@@ -1989,7 +2092,7 @@ function getTabs(url, fn) {
   fn();
 }
 function createTab(imgUrl, name, inStock, price, reviews, orders, id) {
-  return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/".concat(imgUrl, "\" alt=\"item image\" data-id=\"").concat(id, "\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn ").concat(inStockCheck(inStock), "\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
+  return "\n    <div data-modal class=\"goods-item\">\n      <div class=\"top-item\" data-id=\"".concat(id, "\">\n        <img class=\"top-item_like double\" loading=\"lazy\" src=\"img/svg/like_empty.svg\" alt=\"like icon\">\n        <img class=\"top-item_img\" loading=\"lazy\" src=\"./img/").concat(imgUrl, "\" alt=\"item image\" data-id=\"").concat(id, "\">\n        <h2 class=\"top-item_title title title_fz24\">").concat(name, "</h2>\n        <div class=\"top-item_status\">\n          <img class=\"status-img\" src=").concat(inStockSwitcher(inStock), " loading=\"lazy\" alt=\"in stock icon\">\n          <span class=\"status-quantity\">").concat(inStock, "</span>left in stock\n        </div>\n        <div class=\"top-item_price\">\n          <span class =\"price-text\">Price:</span>\n          <span class=\"price-sum\">").concat(price, " $</span>\n        </div>\n        <button class=\"btn top-item_btn ").concat(inStockCheck(inStock), "\">Add to cart</button>\n      </div>\n      <div class=\"bottom-item\">\n        <img class=\"bottom-item_filledlike\" loading=\"lazy\" src=\"img/svg/like_filled_red.svg\" alt=\"icon like filled\">\n        <div class=\"bottom-item_reviews\">\n          <span class=\"reviews-percent\"><span>").concat(reviews, "%</span>Positive reviews</span>\n          <span class=\"reviews-above\">Above avarage</span>\n        </div>\n        <div class=\"bottom-item_order\">\n          <span class=\"order-quantity\">").concat(orders, "</span>orders\n        </div>\n      </div>\n    </div>");
 }
 function generateTabs(imgUrl, name, inStock, price, reviews, orders, id) {
   const store = document.querySelector('.goods-store');
@@ -2102,16 +2205,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-  (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
-  setTimeout(_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite, _filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter, _modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher, _modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails, _slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides, _search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput, _cart_js__WEBPACK_IMPORTED_MODULE_6__.getCart, _cart_js__WEBPACK_IMPORTED_MODULE_6__.clickCart, _cart_js__WEBPACK_IMPORTED_MODULE_6__.selectId, 1000);
-  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
+
+function init() {
+  (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite)();
   (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.showFilter)();
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.modalSwitcher)();
-  (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
   (0,_modal_js__WEBPACK_IMPORTED_MODULE_3__.getDetails)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
+  (0,_slider_js__WEBPACK_IMPORTED_MODULE_4__.showSlides)(_slider_js__WEBPACK_IMPORTED_MODULE_4__.slideIndex);
   (0,_search_js__WEBPACK_IMPORTED_MODULE_5__.searchInput)();
-  (0,_cart_js__WEBPACK_IMPORTED_MODULE_6__.getCart)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items);
+  (0,_cart_js__WEBPACK_IMPORTED_MODULE_6__.clickCart)();
+  (0,_cart_js__WEBPACK_IMPORTED_MODULE_6__.selectId)();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  (0,_tabs_js__WEBPACK_IMPORTED_MODULE_1__.getTabs)(_items_js__WEBPACK_IMPORTED_MODULE_0__.items, _tabs_js__WEBPACK_IMPORTED_MODULE_1__.toFavorite);
+  setTimeout(init, 1000);
+  (0,_filter_js__WEBPACK_IMPORTED_MODULE_2__.accordionFilter)();
 });
 })();
 

@@ -1,0 +1,32 @@
+.btn {
+  padding: 14px 25px;
+  font-weight: 400;
+  background: var(--btn-color);
+  display: block;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--light-color);
+  text-align: center;
+  transition: .7s;
+  border-radius: 5px;
+  border: none;
+  &-unset {
+    background-color: var(--btn-color-focus);
+    filter: drop-shadow(2px 4px 6px var(--accent-color));
+    cursor:auto;
+  }
+  &:hover {
+    // color: var(--second-bkg-color);
+    background-color: var(--btn-color-focus);
+    filter: drop-shadow(2px 4px 6px var(--accent-color));
+  }
+  &_search {
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background: var(--btn-color);
+    border-radius: 50%;
+    transition: .7s;
+  }
+}

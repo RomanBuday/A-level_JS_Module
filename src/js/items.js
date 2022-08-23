@@ -1456,3 +1456,7 @@ export const items = [
     },
   },
 ];
+
+export function getItemById(itemId) {
+  return items.find(({id}) => id == itemId);
+}

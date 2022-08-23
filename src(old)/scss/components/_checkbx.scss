@@ -1,0 +1,26 @@
+.filter-checkbox {
+  opacity: 0;
+  position: relative;
+  right: 28px;
+  width: 15px;
+  height: 15px;
+  &:checked {
+    opacity: 1;
+  }
+}
+
+.filter-label {
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      cursor: pointer;;
+      border: 1px solid var(--filter-bg);
+      margin-right: 10px;
+      background-color: var(--btn-color-focus);
+    }
+}
